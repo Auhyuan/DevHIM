@@ -14,7 +14,7 @@ BOARD_ROOT = SOP_ROOT.parent / "p-sop-build-pp"
 PROJECT_ROOT = SOP_ROOT.parents[2]
 MANIFEST = {
     "name": "p-sop",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "项目开发 SOP 与可独立使用的项目进度看板。",
     "author": {"name": "Auhyuan"},
     "skills": "./skills/",
@@ -49,7 +49,7 @@ def read_skill(root):
 
 def sync_dashboard_resources(check=False):
     # P-SOP owns the source; the standalone shortcut carries generated copies.
-    resources = ("references/dashboard-generation.md", "assets/dashboard-template.html")
+    resources = ("references/dashboard-generation.md", "references/time-and-gap.md", "assets/dashboard-template.html")
     copies = [(BOARD_ROOT / relative, (SOP_ROOT / relative).read_bytes()) for relative in resources]
     stale = [(path, data) for path, data in copies if not path.is_file() or path.read_bytes() != data]
     if check and stale:

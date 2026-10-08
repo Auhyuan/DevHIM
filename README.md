@@ -113,9 +113,9 @@ python3 skill/career/P-SOP/scripts/package_plugin.py
 
 只需要两份 Skill 安装包时使用 `--format skills`；只需要插件时使用 `--format plugin`。原有 `--output tmp/其他名称.zip` 可指定插件路径，独立 Skill ZIP 写到同一目录；输出仅允许位于仓库根目录 `tmp/`。
 
-看板规则的唯一维护入口为 `skill/career/P-SOP/references/dashboard-generation.md`，模板为 `skill/career/P-SOP/assets/dashboard-template.html`。独立看板目录中的同名资源是同步副本，不单独维护；两个入口运行时都只读取各自目录内的资源，不访问另一份 Skill。
+看板规则的唯一维护入口为 `skill/career/P-SOP/references/dashboard-generation.md`，开发周期与 Gap 规则为 `skill/career/P-SOP/references/time-and-gap.md`，模板为 `skill/career/P-SOP/assets/dashboard-template.html`。独立看板目录中的同名资源是同步副本，不单独维护；两个入口运行时都只读取各自目录内的资源，不访问另一份 Skill。
 
-修改 P-SOP 的看板规则或模板后，使用 `--sync-only` 更新独立入口的配套副本，使用 `--check-sync` 只读检查是否同步；直接安装前确保副本已同步。常规打包会先完成同样的同步，再封装两个已完整的目录。同步副本随独立目录一起分发，不在使用看板时生成。
+修改 P-SOP 的看板规则、时间规则或模板后，使用 `--sync-only` 更新独立入口的配套副本，使用 `--check-sync` 只读检查是否同步；直接安装前确保副本已同步。常规打包会先完成同样的同步，再封装两个已完整的目录。同步副本随独立目录一起分发，不在使用看板时生成。
 
 脚本仅同步这些配套副本并封装目录，不读取业务项目、不解析文档、不生成看板，也不修改已安装的 Skill 或插件配置。ZIP 打包物可随时删除或重新生成。
 
@@ -149,6 +149,8 @@ python3 skill/career/P-SOP/scripts/package_plugin.py
 新项目起项或需求方向尚未收敛时，P-SOP 可说明原因并征询是否进入按需 Brainstorming；已明确要求时直接开展。讨论结论并入已有需求资料，不新增独立流程产物。
 
 使用少量持续维护的文档记录当前目标、需求与验收条件、技术方案、任务、检查结果和剩余事项。默认以 `PROJECT-STATE.md` 保存当前快照，以 `psop/REQ`、`psop/DEV`、`psop/DEV/DATA`、`psop/OPS` 按需组织资料；已有项目可复用原来的文件名称、位置与格式。
+
+状态与看板通过“开发周期与中断提醒”展示起项、项目历时、最近有效推进及 Gap。默认不足 3 天为正常接续、3 至不足 7 天为接续提醒、7 至 15 天为中断警告、超过 15 天为长期中断；按完整时间差判断，允许用户调整。恢复前中断保留最近一次，新的推进不清零旧记录；提醒不自动启动验证或重置项目进度。
 
 产物生成与验证分别授权。独立审查、测试、构建、工具检查和页面预览须由用户明确要求或批准最小验证方案后执行；每项默认一次，通过或能力不足即停止，扩展范围及复测需有明确授权。未执行如实记录，不因质量门禁擅自补跑验证，也不默认生成截图和预览副本。
 
