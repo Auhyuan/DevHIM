@@ -123,18 +123,17 @@
           <div class="table-wrap"><table class="checks"><thead><tr><th scope="col">检查点</th><th scope="col">当前结果</th><th scope="col">依据 / 缺口</th></tr></thead><tbody><tr><td>检查项（待核对）</td><td><span class="badge unknown">未记录</span></td><td>填写来源文件、相关章节、版本或验证证据；旧证据需要重新核对时明确标注。</td></tr></tbody></table></div>
         </section>
         <section class="section" id="continuity">
-          <div class="section-heading"><h2>开发周期与中断提醒</h2><span class="secondary">项目历时包含中断，不代表开发工时</span></div>
-          <p class="structure-intro">时间格式：YYYY-MM-DD HH:mm:ss · 时区：未记录 · 时间统计截至：未记录。</p>
-          <!-- 按 time-and-gap.md 填写；恢复前中断保留最近一次。缺少依据不补造，不因页面生成重置 Gap。 -->
+          <div class="section-heading"><h2>开发周期与中断提醒</h2></div>
+          <p class="structure-intro">统计截至：未记录（时区：未记录）。</p>
+          <!-- 按 time-and-gap.md 填写固定五项；推进时间与内容分开。使用实际计算时间重算距上次推进，不改写源文档推进时间。 -->
           <dl class="timeline">
-            <div><dt>项目起项</dt><dd>未记录</dd></div>
-            <div><dt>项目已历时</dt><dd>无法计算：起项时间未记录</dd></div>
-            <div><dt>最近有效推进</dt><dd>未记录</dd></div>
-            <div><dt>距最近推进 / 当前 Gap</dt><dd>无法计算：推进时间未记录</dd></div>
-            <div><dt>最近一次恢复</dt><dd>未记录</dd></div>
-            <div><dt>恢复前中断</dt><dd>未记录</dd></div>
-            <div><dt>恢复提醒</dt><dd>未记录，不据页面推定已完成恢复梳理</dd></div>
+            <div><dt>项目起始</dt><dd>未记录</dd></div>
+            <div><dt>项目历时（包含中断时间）</dt><dd>无法计算</dd></div>
+            <div><dt>最近一次有效推进</dt><dd>未记录</dd></div>
+            <div><dt>距上次推进</dt><dd><strong>无法计算</strong></dd></div>
+            <div style="grid-column:1/-1"><dt>最近一次有效推进内容</dt><dd>未记录</dd></div>
           </dl>
+          <p class="structure-note">等级说明：<strong>NORMAL</strong> 正常接续，不足 3 天；<strong>REMINDER</strong> 接续提醒，3 天至不足 7 天；<strong>WARNING</strong> 中断警告，7 天至 15 天（含）；<strong>LONG_GAP</strong> 长期中断，超过 15 天。</p>
         </section>
         <section class="section" id="risks">
           <div class="two-col"><article><h2>阻塞、风险与返工</h2><p>尚未核对，不代表不存在风险。</p></article><article><h2>最近变更与迁移</h2><p>尚未核对，不因页面生成而改变项目状态。</p></article></div>
