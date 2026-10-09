@@ -154,6 +154,8 @@ python3 skill/career/P-SOP/scripts/package_plugin.py
 
 产物生成与验证分别授权。独立审查、测试、构建、工具检查和页面预览须由用户明确要求或批准最小验证方案后执行；每项默认一次，通过或能力不足即停止，扩展范围及复测需有明确授权。未执行如实记录，不因质量门禁擅自补跑验证，也不默认生成截图和预览副本。
 
+用户报障或出现需要独立跟踪的产品问题时，按需加载 [缺陷管理](skill/career/P-SOP/references/bug-management.md)。BUGS 集中维护问题和闭环结论，轻量 INDEX 按需拆分，TASK 保存修复与验证证据；已有项目直接复用原记录或外部系统。自测通过不自动关闭缺陷，验收按项目约定机制执行，记录、修复、验证与发布分别遵守有效授权。
+
 用户需要进度页面时，直接使用本 Skill 目录内置的看板规则与模板，生成自包含、可离线查看的 `psop/PROJECT-DASHBOARD.html`，无需额外安装独立看板 Skill。该页面展示当前项目事实、证据入口与状态，支持部分和模块折叠。本地文件使用可复制的高亮路径，页面内导航及已核对的网页来源可以保留链接。
 
 详细规则见 [接入与恢复](skill/career/P-SOP/references/adoption-recovery.md)、[流程与门禁](skill/career/P-SOP/references/workflow.md)、[产物与维护](skill/career/P-SOP/references/artifacts.md) 和 [内置看板规则](skill/career/P-SOP/references/dashboard-generation.md)。
