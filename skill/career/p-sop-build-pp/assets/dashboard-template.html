@@ -133,7 +133,16 @@
             <div><dt>距上次推进</dt><dd><strong>无法计算</strong></dd></div>
             <div style="grid-column:1/-1"><dt>最近一次有效推进内容</dt><dd>未记录</dd></div>
           </dl>
-          <p class="structure-note">等级说明：<strong>NORMAL</strong> 正常接续，不足 3 天；<strong>REMINDER</strong> 接续提醒，3 天至不足 7 天；<strong>WARNING</strong> 中断警告，7 天至 15 天（含）；<strong>LONG_GAP</strong> 长期中断，超过 15 天。</p>
+          <div class="structure-note">
+            <p>等级说明：</p>
+            <ul>
+              <li><strong>NORMAL</strong>：正常接续，不足 3 天。</li>
+              <li><strong>REMINDER</strong>：接续提醒，3 天至不足 7 天。</li>
+              <li><strong>WARNING</strong>：中断警告，7 天至 15 天，含 15 天。</li>
+              <li><strong>LONG_GAP</strong>：长期中断，超过 15 天。</li>
+            </ul>
+          </div>
+          <!-- 不附加“时间依据”或计算、维护规则；实际时间缺口优先写在字段中，必要时仅补一句短注。 -->
         </section>
         <section class="section" id="risks">
           <div class="two-col"><article><h2>阻塞、风险与返工</h2><p>尚未核对，不代表不存在风险。</p></article><article><h2>最近变更与迁移</h2><p>尚未核对，不因页面生成而改变项目状态。</p></article></div>
