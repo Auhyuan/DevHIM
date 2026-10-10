@@ -38,6 +38,7 @@
     .work-list{margin:18px 0 0;padding:0;list-style:none}.work-list li{display:grid;grid-template-columns:70px minmax(0,1fr);gap:12px;padding:10px 0;border-top:1px solid #e7ecf0}.work-list .label{color:var(--muted);font-size:12px;padding-top:2px}
     .counts{display:flex;flex-wrap:wrap;gap:18px;margin:20px 0 10px}.counts span{color:var(--muted);font-size:12px}.counts strong{font-size:18px;font-weight:550;color:var(--ink);margin-right:4px;font-variant-numeric:tabular-nums}.task-bar{display:flex;height:7px;background:#e3e9ee;border-radius:4px;overflow:hidden;margin:10px 0}.task-bar .done{background:#448567}.task-bar .doing{background:#477caf}.ratio{font-size:12px;color:var(--muted);margin:0}.unverified{padding:13px 15px;background:#f5f7f9;color:var(--muted);border-radius:5px;margin-top:20px;font-size:13px}
     .next-title{display:flex;align-items:center;gap:10px;margin-bottom:15px}.next-title h2{margin:0}.steps{margin:0;padding-left:22px}.steps li{padding:5px 0 9px 3px}.permission{margin-top:19px;padding-top:16px;border-top:1px solid var(--line);font-size:13px}.permission p:last-child{margin-bottom:0}
+    .gate-note{padding:12px 14px;margin-bottom:16px;border-left:3px solid var(--blue);background:var(--blue-soft);overflow-wrap:anywhere}.gate-note strong{display:block;margin-bottom:4px}.phase strong,.phase span{overflow-wrap:anywhere}
     .table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;text-align:left;font-size:13px}th{font-size:12px;color:var(--muted);font-weight:500;padding:0 12px 11px 0;border-bottom:1px solid var(--line)}td{padding:12px 12px 12px 0;border-bottom:1px solid #e8edf1;vertical-align:top}th:last-child,td:last-child{padding-right:0}td:first-child{font-weight:500;min-width:122px}td:nth-child(2){width:120px}.checks td:last-child{color:var(--muted)}
     .timeline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}.timeline dt{font-size:12px;color:var(--muted);margin-bottom:7px}.timeline dd{margin:0;font-weight:500;font-size:14px;font-variant-numeric:tabular-nums}.timeline .sub{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:5px}
     .two-col{display:grid;grid-template-columns:1fr 1fr;gap:30px}.risk-list{padding-left:18px;margin:0}.risk-list li{padding:4px 0 7px}.change{padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:16px}.change strong{display:block;margin-bottom:8px;font-weight:550}.transition{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:7px}.transition .arrow{color:var(--muted)}
@@ -52,7 +53,7 @@
     @media(max-width:850px){.layout{display:block}aside{position:static;padding:15px 22px;border-bottom:1px solid var(--line)}.nav-title,.side-note{display:none}nav{flex-direction:row;flex-wrap:wrap;gap:4px}nav a{padding:5px 8px;font-size:13px}main{border:0;padding:24px}.topbar{padding:16px 24px}.work-grid{grid-template-columns:1fr}.next-title{margin-bottom:14px}.phase-track{grid-template-columns:repeat(4,minmax(0,1fr))}.phase{padding:10px 8px}.two-col{grid-template-columns:1fr;gap:24px}.doc-list{grid-template-columns:1fr}.doc-list li{padding-top:12px}}
     @media(max-width:520px){body{font-size:14px}.topbar{padding:14px 18px;align-items:flex-start;flex-direction:column;gap:12px}.brand span{font-size:12px}.scenario-control{width:100%;justify-content:space-between}select{min-height:44px;max-width:calc(100% - 80px);font-size:16px}main{padding:22px 18px 30px}aside{padding:12px 10px}.mock-note{font-size:12px;padding:10px 12px}.project-head{flex-direction:column;gap:18px}.head-actions{align-items:flex-start;flex-direction:row;flex-wrap:wrap}.button{min-height:44px;padding:10px 14px}h1{font-size:30px}.lead{font-size:15px}.meta-row{gap:7px 16px}.phase-track{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.paper{padding:18px}.counts{gap:12px 16px}.section-heading{align-items:flex-start;flex-direction:column;gap:0}.section-heading h2{margin-bottom:6px}.section-heading{margin-bottom:14px}.timeline{gap:20px 12px}.timeline dd{font-size:13px}.checks th:nth-child(2),.checks td:nth-child(2){width:80px}.checks td:first-child{min-width:78px}.work-list li{grid-template-columns:60px minmax(0,1fr);gap:8px}.task-heading{flex-wrap:wrap}.task-heading h3{font-size:17px}.section{margin-top:28px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-    @media(max-width:520px){.phase-track{display:none}.module-list{padding-left:8px}.features{padding-left:12px}.features li{flex-direction:column;gap:5px}.feature-meta{flex-wrap:wrap;gap:10px}.part>summary span{display:block;margin-left:17px}}
+    @media(max-width:520px){.module-list{padding-left:8px}.features{padding-left:12px}.features li{flex-direction:column;gap:5px}.feature-meta{flex-wrap:wrap;gap:10px}.part>summary span{display:block;margin-left:17px}}
   </style>
 </head>
 <body>
@@ -60,7 +61,8 @@
        直接填写页面正文，按项目调整分区；不依赖固定文档标题、JSON 或生成器。
        页面输出到项目 psop/PROJECT-DASHBOARD.html；本地文件使用 code.file-ref 高亮实际路径，不生成文件链接。
        当前占位内容不代表项目事实，交付前替换为核对结果或明确的未知说明。
-       项目未接入 P-SOP 时，删除进入方式等不适用的专属字段，沿用项目原有阶段与工作状态。 -->
+       项目未接入 P-SOP 时，删除进入方式等不适用的专属字段，沿用项目原有阶段与工作状态。
+       图示按需遵守 ../references/visual-communication.md；默认复用阶段条、表格与折叠结构，不附带图形副本或验证产物。 -->
   <a class="skip" href="#main">跳到项目内容</a>
   <header class="topbar">
     <div class="brand">P-SOP <span>项目进度</span></div>
@@ -93,7 +95,8 @@
           </div>
           <div class="meta-row"><span>当前模块 <strong>未核对</strong></span><span>项目来源 <strong>未记录</strong></span><span>状态核对 <strong>未记录</strong></span></div>
           <p class="secondary" style="font-size:12px;margin-top:12px">本次交付范围与终点：未记录。</p>
-          <!-- 阶段条按本项目流程增减，只标注有依据的检查状态。 -->
+          <!-- 阶段条按本项目流程增减；当前阶段加 is-current 并在文字中标明“当前”。
+               is-done 仅用于有有效依据的完成结果，不因阶段位置推断前序通过；窄屏保留文字状态。 -->
           <div class="phase-track" aria-label="阶段与已记录检查">
             <div class="phase"><strong>需求</strong><span>未核对</span></div><div class="phase"><strong>设计</strong><span>未核对</span></div><div class="phase"><strong>任务规划</strong><span>未核对</span></div><div class="phase"><strong>开发实施</strong><span>未核对</span></div><div class="phase"><strong>验证审查</strong><span>未核对</span></div><div class="phase"><strong>功能验收</strong><span>未核对</span></div><div class="phase"><strong>发布部署</strong><span>未核对</span></div>
           </div>
@@ -106,6 +109,9 @@
             </article>
             <article class="paper">
               <div class="next-title"><h2>下一步</h2><span class="badge unknown">待核对</span></div>
+              <!-- 有实际门禁时填写缺口、解除人／机制及解除条件；无门禁时改为已授权下一动作。
+                   缺少依据时明确待核对，不补造条件；保持一句短摘要，详情在下方或来源处。 -->
+              <p class="gate-note"><strong>当前推进条件</strong>尚未核对；不能据页面判定可进入下一阶段。</p>
               <ol class="steps"><li>从资料入口核对当前交付范围、进度和授权。</li><li>记录可继续的动作，以及需要开发者确认的事项。</li></ol>
               <div class="permission"><p><strong>已确认执行范围</strong><br>未记录，不据页面推定权限。</p><p><strong>待开发者决定</strong><br>尚未核对。</p></div>
             </article>
@@ -114,8 +120,10 @@
         <section class="section" id="structure">
           <div class="section-heading"><h2>项目结构与功能</h2><span class="secondary">项目 → 部分 → 模块 → 功能</span></div>
           <p class="structure-intro">结构来源与覆盖范围：未记录。</p>
-          <!-- 部分与模块分别可折叠；当前工作模块加 open，其余默认收起。无结构资料时删去占位树并保留缺口说明。 -->
-          <details class="part" open><summary>部分名称（待核对）<span>本期范围待核对</span></summary><ul class="module-list"><li class="module"><details class="module-details"><summary><span class="module-head"><span class="module-name">模块名称（待核对）</span><span class="badge unknown">未核对</span></span></summary><ul class="features"><li><span>功能名称（待核对）</span><span class="feature-meta"><span class="badge unknown">实现与验证状态未知</span></span></li></ul></details></li></ul></details>
+          <!-- 部分与模块分别可折叠；当前工作模块及其上级部分加 open，其余默认收起。
+               复用已有名称和 ID；状态注明实现／验证／验收，只展示当前需要的维度，不能相互替代。
+               无结构资料时删去占位树并保留缺口说明，不新建结构索引或图形登记表。 -->
+          <details class="part" open><summary>部分名称（待核对）<span>本期范围待核对</span></summary><ul class="module-list"><li class="module"><details class="module-details"><summary><span class="module-head"><span class="module-name">模块名称（待核对）</span><span class="badge unknown">实现未核对</span><span class="badge unknown">验证未核对</span></span></summary><ul class="features"><li><span>功能名称（待核对）</span><span class="feature-meta"><span class="badge unknown">实现未核对</span><span class="badge unknown">验证未核对</span></span></li></ul></details></li></ul></details>
           <p class="structure-note">当前结构未核对完整，不推算部分、模块或全项目的完成比例。</p>
         </section>
         <section class="section" id="checkpoints">

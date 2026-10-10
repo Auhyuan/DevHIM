@@ -113,9 +113,9 @@ python3 skill/career/P-SOP/scripts/package_plugin.py
 
 只需要两份 Skill 安装包时使用 `--format skills`；只需要插件时使用 `--format plugin`。原有 `--output tmp/其他名称.zip` 可指定插件路径，独立 Skill ZIP 写到同一目录；输出仅允许位于仓库根目录 `tmp/`。
 
-看板规则的唯一维护入口为 `skill/career/P-SOP/references/dashboard-generation.md`，开发周期与 Gap 规则为 `skill/career/P-SOP/references/time-and-gap.md`，模板为 `skill/career/P-SOP/assets/dashboard-template.html`。独立看板目录中的同名资源是同步副本，不单独维护；两个入口运行时都只读取各自目录内的资源，不访问另一份 Skill。
+看板规则的唯一维护入口为 `skill/career/P-SOP/references/dashboard-generation.md`，开发周期与 Gap 规则为 `skill/career/P-SOP/references/time-and-gap.md`，图示规则为 `skill/career/P-SOP/references/visual-communication.md`，模板为 `skill/career/P-SOP/assets/dashboard-template.html`。独立看板目录中的同名资源是同步副本，不单独维护；两个入口运行时都只读取各自目录内的资源，不访问另一份 Skill。
 
-修改 P-SOP 的看板规则、时间规则或模板后，使用 `--sync-only` 更新独立入口的配套副本，使用 `--check-sync` 只读检查是否同步；直接安装前确保副本已同步。常规打包会先完成同样的同步，再封装两个已完整的目录。同步副本随独立目录一起分发，不在使用看板时生成。
+修改 P-SOP 的看板规则、时间规则、图示规则或模板后，使用 `--sync-only` 更新独立入口的配套副本，使用 `--check-sync` 只读检查是否同步；直接安装前确保副本已同步。常规打包会先完成同样的同步，再封装两个已完整的目录。同步副本随独立目录一起分发，不在使用看板时生成。
 
 脚本仅同步这些配套副本并封装目录，不读取业务项目、不解析文档、不生成看板，也不修改已安装的 Skill 或插件配置。ZIP 打包物可随时删除或重新生成。
 
@@ -158,6 +158,8 @@ python3 skill/career/P-SOP/scripts/package_plugin.py
 
 用户需要进度页面时，直接使用本 Skill 目录内置的看板规则与模板，生成自包含、可离线查看的 `psop/PROJECT-DASHBOARD.html`，无需额外安装独立看板 Skill。该页面展示当前项目事实、证据入口与状态，支持部分和模块折叠。本地文件使用可复制的高亮路径，页面内导航及已核对的网页来源可以保留链接。
 
+技术方案、流程或看板确需图示时，按需加载 [图示表达与维护](skill/career/P-SOP/references/visual-communication.md)。先判断文字、表格或现有结构是否足够，再按问题选择图形；保留来源、关键门禁与异常路径，复杂图优先在原文档内分层。看板突出当前推进条件，区分实现、验证与验收；不额外生成图形副本、登记 JSON 或品牌配置，图形检查仍需有效授权。
+
 详细规则见 [接入与恢复](skill/career/P-SOP/references/adoption-recovery.md)、[流程与门禁](skill/career/P-SOP/references/workflow.md)、[产物与维护](skill/career/P-SOP/references/artifacts.md) 和 [内置看板规则](skill/career/P-SOP/references/dashboard-generation.md)。
 
 ### p-sop-build-pp：只从现有资料构建看板
@@ -192,12 +194,18 @@ AwesomeSkill/
         │   └── references/
         │       ├── adoption-recovery.md
         │       ├── artifacts.md
+        │       ├── bug-management.md
         │       ├── dashboard-generation.md
+        │       ├── time-and-gap.md
+        │       ├── visual-communication.md
         │       └── workflow.md
         └── p-sop-build-pp/
             ├── SKILL.md
             ├── agents/openai.yaml
-            ├── references/dashboard-generation.md
+            ├── references/
+            │   ├── dashboard-generation.md
+            │   ├── time-and-gap.md
+            │   └── visual-communication.md
             └── assets/dashboard-template.html
 ```
 

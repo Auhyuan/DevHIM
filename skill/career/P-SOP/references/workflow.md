@@ -83,3 +83,5 @@ Brainstorming 是 REQUIREMENTS 内按需进行的需求探索，不另建项目�
 任务状态可用 TODO、READY、IN_PROGRESS、VERIFYING、REVIEWING、BLOCKED、DONE；遵循项目已有等价状态。DONE 要满足该任务约定完成条件，不等于已经发布。待审查任务不能计为已完成；被取消任务明确记录，不假装完成。
 
 辅助详细流程图：[development-flow.drawio](../assets/development-flow.drawio)。图帮助理解原始流程，其中验证节点执行前均须通过本文件的验证执行门禁；具体范围、确认与门禁以本文件为准。
+
+生成或修改流程图时按 [图示表达与维护](visual-communication.md) 区分阶段、运行状态和批准条件；正常推进、等待及返工去向需可读。复杂流程可在同一文档或图文件内分层，不为压缩节点省略门禁，也不把概览当作完整执行规范。

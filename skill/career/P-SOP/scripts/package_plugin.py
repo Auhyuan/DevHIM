@@ -49,7 +49,7 @@ def read_skill(root):
 
 def sync_dashboard_resources(check=False):
     # P-SOP owns the source; the standalone shortcut carries generated copies.
-    resources = ("references/dashboard-generation.md", "references/time-and-gap.md", "assets/dashboard-template.html")
+    resources = ("references/dashboard-generation.md", "references/time-and-gap.md", "references/visual-communication.md", "assets/dashboard-template.html")
     copies = [(BOARD_ROOT / relative, (SOP_ROOT / relative).read_bytes()) for relative in resources]
     stale = [(path, data) for path, data in copies if not path.is_file() or path.read_bytes() != data]
     if check and stale:
