@@ -36,9 +36,9 @@ cd AwesomeSkill
 
 打开上方索引中的 `SKILL.md`，确认其适用场景和执行规则。若所用 Agent 支持安装 Skill，按该工具的约定放置所选 Skill 的完整目录；保留 `references/`、`assets/` 和 `agents/` 等已有配套文件，保证相对引用可用。
 
-直接安装仓库中的 `skill/career/P-SOP/` 完整目录，就能使用完整流程和内置看板；打包和插件安装是可选的分发方式。仅生成看板时按需读取本目录的规则与模板，不要求先接入项目开发流程。
+直接安装仓库中的 `skill/career/P-SOP/` 完整目录，就能使用完整流程和内置看板。仅生成看板时按需读取本目录的规则与模板，不要求先接入项目开发流程。
 
-也可以使用下方生成的 ZIP：解压 `p-sop-skill.zip` 后安装其中的 `p-sop/`。仓库内容更新不会自动更新已复制到个人 Skill 目录的旧版本，升级时需移除已安装的旧看板快捷入口，并更新所选安装方式的 P-SOP 副本。
+仓库内容更新不会自动更新已复制到个人 Skill 目录的旧版本，升级时需更新对应的完整目录副本，并移除已不使用的旧入口。
 
 也可以直接让 Agent 阅读仓库中的 Skill 文件，并按其中规则处理任务。例如，在本仓库中：
 
@@ -52,7 +52,7 @@ cd AwesomeSkill
 
 ### 3. 描述目标与执行范围
 
-若 Skill 已被所用工具识别，可按其名称调用。以下是可参考的提示词：
+可以直接用自然语言描述目标，让 Agent 按对应 Skill 执行；所用工具支持显式选择 Skill 时，也可按其名称调用。以下是可参考的提示词：
 
 **项目价值评估**
 
@@ -93,31 +93,6 @@ cd AwesomeSkill
 生成或更新 psop/PROJECT-DASHBOARD.html。
 只更新看板，展示已知进度、可折叠模块、验证缺口与高亮文件路径。
 ```
-
-### 4. 构建完整安装包与插件包
-
-从仓库根目录运行：
-
-```bash
-python3 skill/career/P-SOP/scripts/package_plugin.py
-```
-
-默认生成以下文件：
-
-| 文件 | 包内入口 | 安装后可用能力 |
-| --- | --- | --- |
-| `tmp/p-sop-skill.zip` | `p-sop/SKILL.md` | 完整 P-SOP，包括内置看板能力 |
-| `tmp/p-sop.zip` | 插件清单与 `skills/p-sop/` | 单个 P-SOP 入口，包含开发流程与内置看板 |
-
-只需要 P-SOP Skill 安装包时使用 `--format skills`；只需要插件时使用 `--format plugin`。`--output tmp/其他名称.zip` 可指定插件路径，Skill ZIP 写到同一目录；输出仅允许位于仓库根目录 `tmp/`。
-
-看板规则为 `skill/career/P-SOP/references/dashboard-generation.md`，开发周期与 Gap 规则为 `skill/career/P-SOP/references/time-and-gap.md`，图示规则为 `skill/career/P-SOP/references/visual-communication.md`，模板为 `skill/career/P-SOP/assets/dashboard-template.html`。这些文件直接在 P-SOP 中维护并随完整目录分发。
-
-脚本封装 P-SOP 目录，不读取业务项目、不解析文档、不生成看板，也不修改已安装的 Skill 或插件配置。ZIP 打包物可随时删除或重新生成。
-
-若选择插件安装，将 `p-sop.zip` 解压为插件目录，按所用 Agent 的插件来源登记、安装与启用流程加载，随后使用其中的 P-SOP 入口。普通 Skill 安装使用 `$p-sop`；看板可直接用自然语言请求生成。具体可见名称以安装后的菜单为准，打包成功不代表已安装或命令已注册。可参考 [官方插件封装说明](https://developers.openai.com/plugins/build/plugins) 与 [技能调用说明](https://learn.chatgpt.com/docs/reference/slash-commands)。
-
-该包不依赖 MCP、后台服务或自定义文件打开协议。选择一种安装方式并更新对应副本，避免同时加载旧版、Skill 版和插件版造成入口或规则混淆。
 
 ## 各 Skill 的工作方式
 
@@ -178,7 +153,6 @@ AwesomeSkill/
         └── P-SOP/
             ├── SKILL.md
             ├── agents/openai.yaml
-            ├── scripts/package_plugin.py
             ├── assets/
             │   ├── dashboard-template.html
             │   ├── development-flow.drawio
@@ -197,7 +171,6 @@ AwesomeSkill/
 - `references/`：按具体任务加载的详细规则与参考说明。
 - `assets/`：可复用模板与流程图。
 - `agents/openai.yaml`：Agent 界面配置，包含显示名称、简短说明与默认提示词。
-- `scripts/package_plugin.py`：封装完整 P-SOP Skill 与单入口插件；生成的 ZIP 位于仓库根目录 `tmp/`，不作为第二份维护源码。
 
 ## 使用原则
 

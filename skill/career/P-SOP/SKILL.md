@@ -64,7 +64,7 @@ Git 暂存、提交、推送、部署、SQL 执行与外部数据写入分别遵
 
 ## 可选进度页面
 
-用户需要页面时按需读取本目录的 [看板规则](references/dashboard-generation.md) 与 [HTML 模板](assets/dashboard-template.html)，输出自包含离线 `psop/PROJECT-DASHBOARD.html`。直接安装本 Skill 的完整目录即可使用，不依赖其他 Skill、打包脚本或插件。默认按需覆盖；部分和模块分别可折叠；本地文件入口高亮显示实际路径。
+用户需要页面时按需读取本目录的 [看板规则](references/dashboard-generation.md) 与 [HTML 模板](assets/dashboard-template.html)，输出自包含离线 `psop/PROJECT-DASHBOARD.html`。安装本 Skill 的完整目录，或让 Agent 直接读取本目录入口即可使用。默认按需覆盖；部分和模块分别可折叠；本地文件入口高亮显示实际路径。
 
 用户本次仅请求看板时，直接进入该能力，不先执行项目接入、状态初始化或开发门禁。项目没有 PROJECT-STATE.md 或未接入 P-SOP 时，按现有资料生成页面，不为此建立状态文件。看板规则或模板不可读时，说明本目录资料缺失并指出缺失路径，恢复本 Skill 的配套文件即可。
 
