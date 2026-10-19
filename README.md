@@ -30,8 +30,8 @@
 ### 1. 获取仓库
 
 ```bash
-git clone https://github.com/Auhyuan/AwesomeSkill.git
-cd AwesomeSkill
+git clone https://github.com/Auhyuan/DevHIM.git
+cd DevHIM
 ```
 
 ### 2. 选择并加载 Skill
