@@ -1,5 +1,7 @@
 # DevHIM
 
+![DevHIM 封面：PLAN → DEV → OPS 项目开发流程](assets/DevHIM.png)
+
 面向软件开发与职业成长的 AI Agent Skill 集合，帮助开发者评估项目价值、分析和交付需求，以及维护可接续的项目开发流程。
 
 当前仓库收录 3 个 Skill，均位于 `skill/career/`。每个 Skill 以 `SKILL.md` 为入口，按需配套参考文档、模板及 Agent 界面配置。使用说明默认面向中文交流场景。
