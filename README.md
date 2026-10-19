@@ -138,7 +138,7 @@ cd AwesomeSkill
 ## 仓库结构
 
 ```text
-AwesomeSkill/
+DevHIM/
 ├── README.md
 └── skill/
     └── career/
