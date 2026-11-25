@@ -108,12 +108,20 @@ npm run build
 node dist/cli.js init --offline --dry-run
 ```
 
-安装向导依次选择项目或全局范围、安装模式和 Agent。完整指定选项时可在脚本中运行。`--dry-run` 展示来源、版本、变更和冲突，不写文件。
+安装向导先选模式。选择插件后，可在同一层选择 Codex、Claude Code、两者或「导出 ZIP，交给 Agent 安装」。直接安装时再选择项目或全局范围。完整指定选项时可在脚本中运行。`--dry-run` 展示来源、版本、变更和冲突，不写文件。
 
 | 安装模式 | 可选 Agent |
 | --- | --- |
 | 独立 P-SOP | Codex、Claude Code、Cursor、Qoder、OpenCode |
 | DevHIM 插件（P-SOP、Brainstorming、需求助手、项目评估） | Codex、Claude Code |
+
+只装了桌面版或使用其他 Agent 时，可以在希望保存 ZIP 的目录执行：
+
+```bash
+devhim init --mode plugin --format zip
+```
+
+输出为当前目录的 `devhim-plugin-<Skill版本>.zip`。可加 `--offline` 使用内置快照，或 `--dry-run` 查看目标路径。若已存在同名文件，请选择其他目录或先移走旧包。将 ZIP 附给 Agent，请它按当前宿主支持的方式安装，保留已有配置，并说明启用步骤和四个 Skill 的调用方式。支持插件的宿主可使用清单；仅支持 Skill 的宿主可读取包内的 `skills/`。
 
 默认在线从官方 `Auhyuan/DevHIM` 仓库选择版本号最高的稳定标签（`vX.Y.Z` 或 `X.Y.Z`），忽略预发布标签。一次执行固定一个 Git 提交，预览和实际写入使用同一份内容。仓库尚无稳定标签或网络不可用时会报告原因。显式传入 `--offline` 可安装当前 CLI 内置快照，插件版本随所选内容来源确定。安装后的 Skill 从本地读取。
 

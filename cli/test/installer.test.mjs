@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
+import { unzipSync } from "fflate";
 import { createHash } from "node:crypto";
-import { mkdir, mkdtemp, readFile, rm, unlink, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, readdir, rm, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
@@ -74,4 +76,42 @@ test("update uses the installed baseline, preserves edits and removes only untou
   assert.equal(await readFile(join(dir, "mine.md"), "utf8"), "user");
   await assert.rejects(readFile(old), { code: "ENOENT" });
   assert.ok((await plan(v2, true)).files.every(f => f.action === "same"));
+});
+
+test("plugin ZIP exports in the caller's directory without a host CLI and preserves existing archives", async t => {
+  const root = fileURLToPath(new URL("../../tmp/", import.meta.url));
+  await mkdir(root, { recursive: true });
+  const cwd = await mkdtemp(join(root, "devhim-zip-"));
+  t.after(() => rm(cwd, { recursive: true, force: true }));
+  const cli = fileURLToPath(new URL("../../dist/cli.js", import.meta.url));
+  const args = [cli, "init", "--mode", "plugin", "--format", "zip", "--offline"];
+  const run = (...extra) => spawnSync(process.execPath, [...args, ...extra], {
+    cwd, env: { ...process.env, PATH: "", CI: "1" }, encoding: "utf8",
+  });
+  const preview = run("--dry-run");
+  assert.equal(preview.status, 0, preview.stderr);
+  assert.deepEqual(await readdir(cwd), []);
+  const result = run();
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /请将该文件附给 Agent/);
+  const snapshot = await loadSnapshot("plugin", true);
+  const filename = "devhim-plugin-" + snapshot.version + ".zip";
+  assert.deepEqual(await readdir(cwd), [filename]);
+  const archive = await readFile(join(cwd, filename));
+  const files = unzipSync(archive);
+  for (const key of ["plugin.json", ".claude-plugin/plugin.json", ".codex-plugin/plugin.json"]) {
+    const manifest = JSON.parse(Buffer.from(files[key]));
+    assert.equal(manifest.name, "devhim");
+    assert.equal(manifest.version, snapshot.version);
+  }
+  for (const skill of snapshot.skills) {
+    for (const [name, body] of skill.files) {
+      const path = "skills/" + skill.name + "/" + name.split("\\").join("/");
+      assert.deepEqual(Buffer.from(files[path]), body);
+    }
+  }
+  const repeated = run();
+  assert.equal(repeated.status, 1);
+  assert.match(repeated.stderr, /已有同名文件/);
+  assert.deepEqual(await readFile(join(cwd, filename)), archive);
 });

@@ -7,6 +7,7 @@ import { Command, Option } from "commander";
 import { applyPlan, createPlan, errorMessage, type InstallPlan } from "./install.js";
 import { detectTool, home, tools, toolIds, type Mode, type Scope, type Selection, type Tool } from "./targets.js";
 
+import { exportPlugin } from "./archive.js";
 import { cliVersion, loadSnapshot, type Snapshot } from "./source.js";
 
 interface InitOptions {
@@ -15,6 +16,7 @@ interface InitOptions {
   tools?: string;
   dryRun?: boolean;
   offline?: boolean;
+  format?: "zip";
 }
 
 class Cancelled extends Error {}
@@ -116,12 +118,43 @@ function renderPlan(selection: Selection, plans: InstallPlan[], showUnchanged: b
 }
 
 async function run(path: string | undefined, options: InitOptions, updating: boolean): Promise<void> {
-  const needsChoices = !options.scope || !options.mode || !options.tools;
-  if (needsChoices && !(process.stdin.isTTY && process.stdout.isTTY && !process.env.CI)) {
-    throw new Error("脚本环境请明确指定安装选项。例如 " + automatedExample);
+  const zip = options.format === "zip";
+  if (zip && (options.mode !== "plugin" || options.scope || options.tools || path !== undefined)) {
+    throw new Error("ZIP 导出请使用 init --mode plugin --format zip；输出位置为当前目录，无需指定安装目录、范围或 Agent。");
   }
-  const chosen = options.tools === undefined ? undefined : parseTools(options.tools);
+  const needsChoices = !zip && (!options.scope || !options.mode || !options.tools);
+  if (needsChoices && !(process.stdin.isTTY && process.stdout.isTTY && !process.env.CI)) {
+    throw new Error("脚本环境请明确指定安装选项。例如 " + automatedExample + "，或 devhim init --mode plugin --format zip");
+  }
+  let chosen = options.tools === undefined ? undefined : parseTools(options.tools);
   if (needsChoices) prompt.intro(updating ? "DevHIM  ·  更新向导" : "DevHIM  ·  安装向导");
+
+  const mode = options.mode ?? await answer(prompt.select<Mode>({
+    message: updating ? "要更新什么？" : "要安装什么？",
+    options: [
+      { value: "skill", label: modes.skill, hint: "完整项目 SOP 与看板" },
+      { value: "plugin", label: modes.plugin, hint: "P-SOP、Brainstorming、需求助手、项目评估" },
+    ],
+  }));
+  let exportZip = zip;
+  if (!updating && mode === "plugin" && !chosen && !zip) {
+    const destination = await answer(prompt.select({
+      message: "选择安装目标或导出方式",
+      options: [
+        { value: "codex", label: "Codex" },
+        { value: "claude", label: "Claude Code" },
+        { value: "codex,claude", label: "Codex 和 Claude Code" },
+        { value: "zip", label: "导出 ZIP，交给 Agent 安装", hint: "输出到当前目录" },
+      ],
+    }));
+    exportZip = destination === "zip";
+    if (!exportZip) chosen = parseTools(destination);
+  }
+  if (exportZip) {
+    const snapshot = await loadSnapshot("plugin", options.offline === true);
+    await exportPlugin(snapshot, options.dryRun === true);
+    return;
+  }
 
   const scope = options.scope ?? await answer(prompt.select<Scope>({
     message: updating ? "更新哪个范围？" : "安装到哪里？",
@@ -140,13 +173,6 @@ async function run(path: string | undefined, options: InitOptions, updating: boo
     if (!(await stat(project)).isDirectory()) throw new Error("项目路径不是目录：" + project);
   }
 
-  const mode = options.mode ?? await answer(prompt.select<Mode>({
-    message: updating ? "要更新什么？" : "要安装什么？",
-    options: [
-      { value: "skill", label: modes.skill, hint: "完整项目 SOP 与看板" },
-      { value: "plugin", label: modes.plugin, hint: "P-SOP、Brainstorming、需求助手、项目评估" },
-    ],
-  }));
   const selection: Selection = { scope, mode, project, tools: [] };
   selection.tools = chosen ?? await pickTools(selection, updating);
   if (mode === "plugin" && selection.tools.some(id => !tools[id].plugin)) throw new Error("插件模式仅支持 Codex 和 Claude Code。");
@@ -198,15 +224,19 @@ const program = new Command()
   .showHelpAfterError();
 
 for (const name of ["init", "update"] as const) {
-  program.command(name + " [path]")
+  const command = program.command(name + " [path]")
     .description(name === "init" ? "安装独立 Skill 或 DevHIM 插件" : "更新已安装的目标并保留本地修改")
     .addOption(new Option("--scope <scope>", "安装范围").choices(["project", "global"]))
     .addOption(new Option("--mode <mode>", "独立 Skill 或组合插件").choices(["skill", "plugin"]))
     .option("--tools <ids>", "Agent ID，逗号分隔：" + toolIds.join(", "))
     .option("--dry-run", "逐文件预览，不写入文件")
     .option("--offline", "使用当前 CLI 随附的 Skill 快照")
-    .addHelpText("after", "\n示例\n  devhim " + name + "\n  " + automatedExample.replace("init", name) + " --dry-run")
-    .action((path, options) => run(path, options, name === "update"));
+    .addHelpText("after", "\n示例\n  devhim " + name + "\n  " + automatedExample.replace("init", name) + " --dry-run");
+  if (name === "init") {
+    command.addOption(new Option("--format <format>", "在当前目录导出插件").choices(["zip"]))
+      .addHelpText("after", "  devhim init --mode plugin --format zip");
+  }
+  command.action((path, options) => run(path, options, name === "update"));
 }
 
 try {

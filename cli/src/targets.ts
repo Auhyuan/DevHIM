@@ -85,6 +85,17 @@ export function encodeJson(value: unknown): Buffer {
   return Buffer.from(JSON.stringify(value, null, 2) + "\n");
 }
 
+export function pluginManifest(snapshot: Snapshot) {
+  return {
+    name: "devhim", version: snapshot.version,
+    description: "P-SOP 项目开发规范、需求探索、需求分析与交付、项目价值评估。",
+  };
+}
+
+export function codexManifest(snapshot: Snapshot) {
+  return { ...pluginManifest(snapshot), skills: "./skills/", interface: { displayName: "DevHIM" } };
+}
+
 export function buildTargets(selection: Selection, snapshot: Snapshot, updating: boolean): Target[] {
   const { mode, scope, project } = selection;
   const content = snapshot.skills;
@@ -103,10 +114,7 @@ export function buildTargets(selection: Selection, snapshot: Snapshot, updating:
     const { root, anchor, bundle, pluginPath } = pluginLocation(tool, selection);
     const files: Target["files"] = content.flatMap(({ name, files }) =>
       files.map(([file, body]): [string, Buffer] => [join(bundle, "skills", name, file), body]));
-    const manifest = {
-      name: "devhim", version: snapshot.version,
-      description: "P-SOP 项目开发规范、需求探索、需求分析与交付、项目价值评估。",
-    };
+    const manifest = pluginManifest(snapshot);
 
     if (tool === "claude") {
       const nativeScope = scope === "project" ? "local" : "user";
@@ -129,9 +137,7 @@ export function buildTargets(selection: Selection, snapshot: Snapshot, updating:
       };
     }
 
-    files.push([join(bundle, ".codex-plugin/plugin.json"), encodeJson({
-      ...manifest, skills: "./skills/", interface: { displayName: "DevHIM" },
-    })]);
+    files.push([join(bundle, ".codex-plugin/plugin.json"), encodeJson(codexManifest(snapshot))]);
     const name = scope === "project" ? "devhim-project" : "devhim-local";
     return {
       tool, anchor, bundle, files,

@@ -1,6 +1,6 @@
 {
   "name": "@auhyuan/devhim",
-  "version": "0.1.0-alpha.4",
+  "version": "0.1.0-alpha.5",
   "description": "Install P-SOP and the DevHIM plugin for coding agents.",
   "type": "module",
   "bin": {
@@ -27,7 +27,8 @@
   },
   "dependencies": {
     "@clack/prompts": "^1.0.0",
-    "commander": "^14.0.0"
+    "commander": "^14.0.0",
+    "fflate": "^0.8.3"
   },
   "devDependencies": {
     "@types/node": "^22.19.0",
