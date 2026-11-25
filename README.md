@@ -98,6 +98,38 @@ cd DevHIM
 只更新看板，展示已知进度、可折叠模块、验证缺口与高亮文件路径。
 ```
 
+## DevHIM CLI 本地试用
+
+需要 Node.js 22 或更新版本。从仓库根目录构建并预览本地安装：
+
+```bash
+npm ci
+npm run build
+node dist/cli.js init --offline --dry-run
+```
+
+安装向导依次选择项目或全局范围、安装模式和 Agent。完整指定选项时可在脚本中运行。`--dry-run` 展示来源、版本、变更和冲突，不写文件。
+
+| 安装模式 | 可选 Agent |
+| --- | --- |
+| 独立 P-SOP | Codex、Claude Code、Cursor、Qoder、OpenCode |
+| DevHIM 插件（P-SOP、Brainstorming、需求助手、项目评估） | Codex、Claude Code |
+
+默认在线从官方 `Auhyuan/DevHIM` 仓库选择版本号最高的稳定标签（`vX.Y.Z` 或 `X.Y.Z`），忽略预发布标签。一次执行固定一个 Git 提交，预览和实际写入使用同一份内容。仓库尚无稳定标签或网络不可用时会报告原因。显式传入 `--offline` 可安装当前 CLI 内置快照，插件版本随所选内容来源确定。安装后的 Skill 从本地读取。
+
+```bash
+devhim init
+devhim update
+devhim init /path/to/project --scope project --mode skill --tools codex,claude --dry-run
+devhim update /path/to/project --scope project --mode skill --tools codex,claude --dry-run
+```
+
+安装记录存放在目标目录旁，保存来源、版本、在线提交及受管文件指纹。`update` 显示当前和目标版本，更新原样文件并移除新版已删除的原样文件。遇到本地修改时跳过对应 Agent，保留其他自建文件。旧安装没有指纹时，仅识别与内置快照或目标版本一致的内容；其余差异交由用户处理。Claude 的本地插件市场由同一用户的多个项目共享，插件启用范围遵循所选宿主配置。
+
+本地开发使用 `node dist/cli.js` 代替上述 `devhim`。有新稳定内容时，在官方仓库为对应提交发布新的稳定标签；CLI 本身改变时再发布 npm 包。
+
+安装后按终端提示打开新会话。在 Claude Code 插件中，可用 `/devhim:brainstorming` 直接探索需求。在 Codex 启用 DevHIM 后，从插件中选择 `brainstorming`。
+
 ## 各 Skill 的工作方式
 
 ### project-evaluation：基于证据判断项目价值

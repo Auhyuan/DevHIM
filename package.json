@@ -1,0 +1,36 @@
+{
+  "name": "@auhyuan/devhim",
+  "version": "0.1.0-alpha.4",
+  "description": "Install P-SOP and the DevHIM plugin for coding agents.",
+  "type": "module",
+  "bin": {
+    "devhim": "./dist/cli.js"
+  },
+  "files": [
+    "dist/",
+    "skill/career/"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Auhyuan/DevHIM.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p cli/tsconfig.json",
+    "prepack": "npm run build",
+    "test": "npm run build && node --test cli/test/installer.test.mjs"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.0.0",
+    "commander": "^14.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.0",
+    "typescript": "~5.9.3"
+  }
+}
