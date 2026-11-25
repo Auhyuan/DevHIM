@@ -4,7 +4,7 @@
 
 面向软件开发与职业成长的 AI Agent Skill 集合，帮助开发者评估项目价值、分析和交付需求，以及维护可接续的项目开发流程。
 
-当前仓库收录 3 个 Skill，均位于 `skill/career/`。每个 Skill 以 `SKILL.md` 为入口，按需配套参考文档、模板及 Agent 界面配置。使用说明默认面向中文交流场景。
+当前仓库收录 4 个 Skill，均位于 `skill/career/`。每个 Skill 以 `SKILL.md` 为入口，按需配套参考文档、模板及 Agent 界面配置。使用说明默认面向中文交流场景。
 
 ## Skill 索引
 
@@ -13,17 +13,19 @@
 | `project-evaluation` | 判断项目是否值得学习、参与、维护，或作为简历与面试素材 | 基于项目证据评估学习价值、求职相关性、技术深度与广度、业务价值和成长机会 | [项目价值评估](skill/career/project-evaluation/SKILL.md) |
 | `requirement-helper` | 分析新需求、增强功能、修复缺陷、制定实现方案或审查改动 | 先只读分析价值、方案与风险，再按授权进入手动指导或自动实现，并验证结果 | [需求分析与交付助手](skill/career/requirement-helper/SKILL.md) |
 | `p-sop` | 新项目启动、已有项目接入、日常接续与中断恢复 | 按需求、设计、任务、开发、验证与验收推进，维护当前状态和精简资料，按需生成进度页面 | [P-SOP 项目开发规范](skill/career/P-SOP/SKILL.md) |
+| `brainstorming` | 新项目、新功能的方向或首期范围需要探索 | 澄清关键问题，比较可行方向，收敛为可确认的需求 | [需求探索](skill/career/brainstorming/SKILL.md) |
 
 > `P-SOP` 是仓库目录名，`p-sop` 是该 Skill 在 `SKILL.md` 中声明的名称。
 
 ## 如何选择
 
 - 想知道“这个项目值得投入吗、能学到什么、对求职有什么帮助”，使用 `project-evaluation`。
+- 还在想“做什么、先做什么”，使用 `brainstorming` 收敛方向。
 - 已有具体需求，想判断“要不要做、怎么做、怎么验证”，使用 `requirement-helper`。
 - 希望知道“项目做到哪了、接下来做什么、如何接续或交接”，使用 `p-sop`。
 - 只希望“用现有资料生成或更新进度看板”，直接告诉 Agent 生成看板，由 `p-sop` 按需加载内置规则与模板。
 
-这些能力可以独立使用，也可以配合：先评估项目，再由 P-SOP 管理项目流程，在具体需求上使用 requirement-helper 分析与交付。P-SOP 提供流程骨架并内置完整看板能力，专项 Skill 负责对应的分析和实施工作。
+这些能力可独立使用，也可配合。方向不清时用 brainstorming 探索，明确的需求交给 requirement-helper 分析与交付，项目全程由 P-SOP 接续管理。
 
 ## 快速开始
 
@@ -104,6 +106,10 @@ cd DevHIM
 
 输出包括项目结论、评分依据、可学习内容、求职素材、成长机会和建议投入路线。只有项目描述、缺少仓库证据时，给出初步评估并说明缺失信息。
 
+### brainstorming：从模糊想法收敛到可确认的需求
+
+先复用已有上下文，每轮聚焦最影响方向的问题。需要选择时比较少量可行方向，最后用首期范围、成功标准和待确认事项简短交接。讨论默认保留在会话里。
+
 ### requirement-helper：先分析，再按授权交付
 
 采用 `Advisory → Delivery → Verification` 三阶段，并按需求复杂度选择 Light、Standard 或 Deep 分析深度。
@@ -119,7 +125,7 @@ cd DevHIM
 
 支持 `NEW`、`ADOPT`、`CONTINUE`、`RESUME` 四种进入方式，分别对应新项目、已有项目接入、日常继续和中断恢复。
 
-新项目起项或需求方向尚未收敛时，P-SOP 可说明原因并征询是否进入按需 Brainstorming；已明确要求时直接开展。讨论结论并入已有需求资料，不新增独立流程产物。
+起项或新增需求方向未定时，P-SOP 可提议使用独立的 brainstorming。探索结束后回到需求阶段确认。
 
 使用少量持续维护的文档记录当前目标、需求与验收条件、技术方案、任务、检查结果和剩余事项。默认以 `PROJECT-STATE.md` 保存当前快照，以 `psop/REQ`、`psop/DEV`、`psop/DEV/DATA`、`psop/OPS` 按需组织资料；已有项目可复用原来的文件名称、位置与格式。
 
@@ -142,6 +148,8 @@ DevHIM/
 ├── README.md
 └── skill/
     └── career/
+        ├── brainstorming/
+        │   └── SKILL.md
         ├── project-evaluation/
         │   └── SKILL.md
         ├── requirement-helper/

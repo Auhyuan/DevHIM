@@ -1,105 +1,102 @@
-# 产物、可读性与维护
+# Artifacts, readability, and maintenance
 
-## 最小目录
+## Minimal layout
 
 ```text
 project/
-├── AGENTS.md                         复用已有入口约束
-├── PROJECT-STATE.md                  当前交付快照
-├── PROJECT-MANIFEST.md               可选，现有资料可代替
+├── AGENTS.md                         Existing entry instructions
+├── PROJECT-STATE.md                  Current delivery snapshot
+├── PROJECT-MANIFEST.md               Optional; existing sources can serve this purpose
 ├── psop/
-│   ├── PROJECT-DASHBOARD.html         可选，按需覆盖
-│   ├── REQ/PROJECT-SPEC-001.md        需求、AC、范围、Review 与确认
+│   ├── PROJECT-DASHBOARD.html         Optional current snapshot
+│   ├── REQ/PROJECT-SPEC-001.md        Requirements, AC, scope, review, confirmation
 │   ├── DEV/
-│   │   ├── TECH-SPEC-001.md           技术方案与设计 Review
-│   │   ├── TASKS-001.md               任务、验证、Review 与验收
-│   │   └── DATA/                     必要的可执行数据库产物
+│   │   ├── TECH-SPEC-001.md           Technical design and design review
+│   │   ├── TASKS-001.md               Tasks, checks, review, and acceptance
+│   │   └── DATA/                     Necessary executable database artifacts
 │   └── OPS/
-│       ├── OPERATIONS-001.md          发布与当前运行说明
-│       └── ISSUES-001.md              运维事项与处理结果
-└── tmp/                              临时检查和输出
+│       ├── OPERATIONS-001.md          Release and current operations
+│       └── ISSUES-001.md              Operational issues and outcomes
+└── tmp/                              Disposable checks and output
 ```
 
-文件按阶段和实际需要建立。首次需求确认通常只需要状态与需求文档；设计和规划阶段再产生 TECH / TASK。OPS、DATA、独立索引及页面按需。原始工程文件由技术栈决定，不由 P-SOP 预建空代码或测试目录。
+Create records when the stage needs them. First requirements confirmation usually needs only state and requirements records. Add TECH and TASK during design and planning. Create OPS, DATA, dedicated indexes, and the page on demand. Let the technology stack determine source and test layout.
 
-已有项目或其他 Skill 已有 PRD、AC、TECH、TASK、运行说明时复用其名称、位置和格式。在状态中标清哪个是当前有效入口；不为套目录复制一份，不建立第二套同含义事实。新项目用上述默认名称，用户指定规范优先。
+Reuse existing PRD, AC, TECH, TASK, and operations records in their current names, paths, and formats. Identify the current authoritative location in the state file. Use the default layout for a new project unless the user specifies another one.
 
-## 内容放在哪里
+## Where information belongs
 
-| 资料 | 建议集中保存的内容 |
+| Record | Contents |
 |---|---|
-| PROJECT-SPEC | 项目目的、本期范围与排除项、业务规则、稳定 REQ / AC ID、可观察验收条件、需求 Review 与确认 |
-| TECH-SPEC | 目标与 AC 映射、实现边界、接口 / 数据 / 状态变化、超时重试幂等和异常策略、依赖与风险、验证策略、设计 Review 与确认 |
-| TASKS | 任务索引、当前任务详情、自验证、代码 Review、集成结果、AC 结果与验收；完成事实与证据位置 |
-| OPERATIONS | 当前版本与环境、实际发布记录、部署前置与权限、操作与恢复、冒烟观察、监控与排障入口 |
-| ISSUES | 运行反馈与待分流事项；来源、影响、处置、关联 REQ / BUG / TASK / RELEASE，不复制缺陷详情 |
-| BUGS / INDEX（按需） | BUGS 保存需要独立跟踪的缺陷与闭环结论；INDEX 仅保存导航和状态摘要，少量缺陷时索引可放 BUGS 顶部 |
+| PROJECT-SPEC | Purpose, in-scope and excluded work, business rules, stable REQ and AC IDs, observable acceptance criteria, review, and confirmation |
+| TECH-SPEC | Goal and AC mapping, implementation boundaries, interface, data and state changes, timeouts, retries, idempotency, exceptions, dependencies, risks, checks, design review, and confirmation |
+| TASKS | Index, current tasks, self-checks, code review, integration results, AC acceptance, completion facts, and evidence locations |
+| OPERATIONS | Version, environment, actual releases, deployment prerequisites and permissions, operation and recovery, smoke checks, monitoring, and troubleshooting |
+| ISSUES | Source, impact, disposition, and related REQ, BUG, TASK, or RELEASE links |
+| BUGS and optional INDEX | BUGS holds defects and closure evidence. INDEX holds navigation and status summaries. A small index can live at the top of BUGS. |
 
-每个当前维护卷保留“范围、实质修订、最新变化及原因、相关入口”的短说明。需求确认与各类 Review 就地记录，不默认生成独立文件。正文保留业务结论、必要依据、授权边界与下一步；移除模板占位、填写提示和 Agent 工具操作说明，不复制完整聊天、工具输出或冗长流水。业务约束、复现及运行所需的操作说明仍应保留。
+Keep a short scope, material revision, latest change and reason, and related links in each active volume. Record confirmations and reviews in place. Keep decisions, essential evidence, boundaries, and next actions. Remove placeholders, drafting prompts, verbose transcripts, routine tool output, and redundant process notes. Retain operating or reproduction steps necessary to use the record.
 
-### 任务的最小可执行信息
+### Task details
 
-一张索引展示 ID、目标、关联 AC、依赖和状态；当前任务详情给出输入、影响范围、实现约束、适用验证、完成条件和实际结果。名称用具体动作与结果，避免只有“完成模块开发”。例如：
+Index each task by ID, goal, related AC, dependencies, and status. For the current task, record inputs, affected scope, implementation constraints, applicable checks, completion criteria, and results. Name tasks by action and outcome. Example:
 
 ```text
-TASK-004：超时检测与终态保护
-AC：AC-004～006；依赖：有效设计与下游幂等能力
-范围：真实定位到的扫描、重试与回调处理；归属已核对
-约束：最多一次重试；迟到回调不覆盖终态
-当前：正在实现，编译与场景验证尚未执行
-验证授权：尚未授权；拟检查项仅是建议，确认后执行
-检查：时间边界、并发扫描、重复回调、耗尽；记录实际结果
-完成：适用检查及代码 Review 通过，当前版本证据可定位
+TASK-004 — Detect timeouts and protect terminal states
+AC: AC-004 through AC-006. Dependencies: effective design and downstream idempotency.
+Scope: identified scan, retry, and callback handlers. Ownership checked.
+Constraints: one retry at most. A late callback cannot overwrite a terminal state.
+Current: implementation in progress. Build and scenario checks not run.
+Authorization: pending. Proposed checks are time boundaries, concurrent scans,
+duplicate callbacks, and retry exhaustion.
+Done: applicable checks and code review pass, with evidence for the current version.
 ```
 
-同一未完成目标改变时更新原 TASK，保持 ID；新的独立业务目标或已完成后产生的新交付建立新 ID，写入当前卷。新缺陷修复可以是关联原任务的新任务，保留原完成证据，不为了隐藏回归覆盖历史结论。取消、合并或替代明确记录去向，不算完成。
+Update an open task for changes to the same goal and keep its ID. Use a new ID for a new independent goal or delivery after completion. Link a new regression repair to the prior task and retain prior results. Record the disposition of canceled, merged, or superseded work without counting it as complete.
 
-缺陷的问题记录、状态与关闭依据遵守 [缺陷管理](bug-management.md)；TASK 记录实际修复及验证，通过稳定 BUG ID 关联，不复制整条缺陷。一项任务可覆盖相关缺陷，不强制每个 BUG 单建任务。
+Follow [defect tracking](bug-management.md) for issues and closure. TASK holds actual repairs and evidence linked by stable BUG IDs. One task may cover related defects.
 
-### 可追溯证据
+### Traceable evidence
 
-检查记录指明覆盖对象 / 版本、方法或实际命令、时间、结果、必要的输出摘要、剩余问题和证据入口。未执行写未执行，不能用计划中的命令当证据。AC 与设计、任务、验收至少通过稳定 ID 相连，不另建一套逐项追踪文件。
+Record the object and version, method or command actually used, time, outcome, essential output, remaining gaps, and evidence location. Distinguish unrun checks from evidence. Link AC to design, tasks, and acceptance by stable IDs. Use paths, sections, or existing entries when IDs are missing, and add only the mapping the task needs. Preserve the meaning and confirmation of existing requirements.
 
-验证方案及用户执行授权就地写在当前任务或方案中，标清对象、范围、次数与停止条件；适用验证清单不等于执行授权。状态只保留短边界与入口，不新增授权流水或逐次验证报告。
+Record verification scope, run count, stop conditions, and authorization in the current task or design. Treat the checklist as a list of checks the work may require. Keep only a short boundary and pointer in the state. Avoid separate verification logs.
 
-已有资料没有 REQ / AC ID 时，可先用文件路径、章节或原条目建立稳定关联，只补当前工作需要的索引；后续确需编号时就地补充映射。不得为初始化编号改写业务含义、补造确认，或强制重建全量文档。
+Compute task completion only from unique current tasks within the confirmed scope and label any effort weighting. Exclude past deliveries, canceled work, and out-of-scope tasks. Avoid using feature counts as task counts or project progress.
 
-任务完成比例只统计已确认范围内、不重复的当前任务，说明是否按工作量加权；旧交付、取消与范围外任务不混入。功能数量不能自动变为任务数或全项目进度。
+## Separate artifacts on demand
 
-## 按需独立产物
+- Use API-SPEC, ERD, state or sequence diagrams when integration, tooling, or independent editing calls for them. Embed simple diagrams and models in the design. Reuse generated contracts where present.
+- For DATA, optionally use DDL, DML, MIGRATION, and ROLLBACK. Follow the actual tool or ORM layout and link the source files. State SQL dialect, dependencies, environment, recovery, and execution prerequisites. Obtain execution authorization separately. Preserve applied migrations and version subsequent executable changes.
+- Keep deployment configurations, builds, container files, and scripts in their actual engineering directories. Reference versions and uses from operations notes. Exclude binary copies, secrets, and live credentials from P-SOP records.
+- Create a structure index only when current records cannot explain project, parts, modules, and features. Reuse names and IDs and mark unknowns.
+- Read [diagram guidance](visual-communication.md) for visual artifacts. Embed supporting diagrams in the corresponding living document where practical. Keep underlying gates and acceptance evidence available.
 
-- API-SPEC、ERD、状态 / 时序图：需要联调、工具消费或复杂关系独立编辑时建立。简单图和数据模型嵌在技术文档；已有生成式契约则复用，技术说明只保存决策与入口。
-- DATA：必要时使用 DDL、DML、MIGRATION、ROLLBACK 子目录。迁移工具、ORM 或项目已有目录要求优先，状态或技术文档引用实际文件，不维护影子副本。SQL 有方言、依赖、适用环境、恢复与执行前置说明；产出文件不表示获得执行权限。已应用迁移保持原内容，新变化建立新执行版本。
-- 发布资源：部署配置、构建物、容器文件或操作脚本使用工程实际目录，运行说明引用其版本与用途；不要复制二进制到 psop。密钥与真实凭证不写入这些资料。
-- 结构索引：只有现有资料不能方便提供项目 → 部分 → 模块 → 功能时才建立。不确定的结构与状态写未知，复用现有名称和 ID。
+Treat suggested paths and filenames as defaults. Reuse other skills' formats if the result is readable, evidence is locatable, and each fact has one maintenance location.
 
-需要图示时按 [图示表达与维护](visual-communication.md) 判断用途、格式和阅读密度；图优先嵌入对应 Living Document，复用现有名称、ID 与来源。图示规范不新增项目资料类别，不要求为每个模块、任务或缺陷绘图；不能以图的概览代替完整门禁或验收依据。
+## Triage issues and defects
 
-文件名与目录是默认组织方式，不是强制内容解析协议。其他 Skill 可以改变内容格式；人可读、依据可定位、单一维护入口仍需保留。
+Handle immediate coding corrections, script failures, and environment issues in the relevant task. For user-reported defects, regressions, and independently tracked product problems, use [defect tracking](bug-management.md) whether found during development, acceptance, or operations. Mark uncertain product reports as unconfirmed.
 
-## 事项与缺陷分流
+Operational feedback can start in ISSUES or an existing tracker. After triage keep only its origin, disposition, and links there. Put confirmed new requirements in REQ and design and implementation in DEV. Track implementation, acceptance, and actual releases separately. Keep unconfirmed suggestions outside the agreed scope.
 
-开发中的即时纠错、脚本与环境问题先在相关任务中处理；用户报障、回归或需要独立跟踪的产品问题，无论发生于开发、验收还是运行期间，按 [缺陷记录与处理](bug-management.md) 登记。未确认的产品问题可先记录为待确认，不能凭推测认定根因。
+<a id="living-documents-与分卷"></a>
 
-运行反馈可先在 ISSUES 受理，已有缺陷入口时直接复用；分流后只保留来源、处置与关联。确认的新需求在 REQ 更新，方案与实施放 DEV；缺陷详情集中在 BUGS 或项目已有系统，不在 ISSUES 再复制一份。实现完成、验收完成、实际发布分别记录，未确认建议不擅自扩大范围。
+## Living documents and volume rollover
 
-## Living Documents 与分卷
+Overwrite the current state and dashboard snapshots. Update an existing goal in the active requirements, design, task, operations, or issue volume. Append independent goals in the same volume. Use readable fields and tables as needed.
 
-状态与页面覆盖当前快照；需求、设计、任务、运行说明及事项在当前卷覆盖原目标或增量写独立目标。正文以结论、必要依据、下一步为主，字段和表格服务于人工阅读，不要求固定表头。
+For a proposed requirement or design change, note the proposal, reason, impact, and open decision beside the current entry. Keep the effective requirement until the change is confirmed. Keep read-only discussion in the conversation. For example, a proposal to raise the retry limit from one to three can identify AC-012, design section 2, and TASK-008. If a valid confirmation or grant already applies, update in place.
 
-需要确认的需求或方案变化，在原条目旁简述拟改内容、原因、影响及待决定事项，保留当前有效要求；只读讨论时留在对话中。例如“当前最多重试 1 次；拟改为 3 次，待确认；影响 AC-012、方案 §2 和 TASK-008”。已有明确确认或授权覆盖时直接就地更新，不重复询问。
+After confirmation, merge the decision into the current entry and retain only useful rationale and links. Remove superseded or declined drafts. Track implementation, verification, and release separately. Follow existing ID rules for new goals. Keep IDs on renames, preserve the disposition of removed or superseded items, and avoid reusing IDs. Record only material changes without mandatory change IDs or separate proposals.
 
-确认后将变化合入有效条目，只留必要原因与关联，移除已合并或未采纳的草案，避免长期并列两套当前规则。要求已更新不表示实现、验证或上线已完成，各自保留实际状态。新增目标按原编号规则处理；重命名保留 ID，删除或替代保留必要去向，不复用旧 ID。仅有实际变化时记录，不增加必填字段、变更编号或独立提案文件。
+Consider cleanup around **8,000 body characters or 300 non-empty lines**, and assess rollover around **12,000 characters or 500 non-empty lines**. Adjust for project and information density. Remove duplication first and split at complete entry boundaries. Keep time and stage changes independent of rollover.
 
-建议约 8,000 正文字符或 300 非空行时整理，约 12,000 字符或 500 非空行时评估分卷。先去重复和无用历史，再在完整条目边界滚动；可按项目与内容密度调整，不机械截断，也不因时间或阶段变化分卷。
+1. Start the next numbered volume. Carry over open entries, stable IDs, and enough current context to continue.
+2. Keep completed details and historical evidence in the old volume. Summarize or link them in the new one. Include current design decisions in enough detail to avoid rereading all prior volumes.
+3. Record the seal date, transferred scope, and successor path in the old volume, then stop routine edits there.
+4. Point the state to the new volume and current entries. Check links in both directions, stable IDs, statuses, and the counting basis. Count a transferred task once.
 
-分卷顺序：
+Correct old factual errors in the current volume with a source link. Add an erratum if the team requires it. Track volume number separately from material revision. Rollover, reading, and formatting count as neither revisions nor rework.
 
-1. 建立下一个编号，继承未完成条目与稳定 ID，以及足够继续工作的当前有效上下文。
-2. 已完成的详细任务与历史证据留在旧卷，新卷只留必要摘要与引用；当前设计的有效约定需在新卷充分说明，避免每次读全部旧卷。
-3. 旧卷封存前记录封存时点、转移范围与后继路径，此后停止日常修改。
-4. 状态指向新卷与当前条目。核对双向链接、ID、状态、统计口径；同一转移任务不重复计数。
-
-旧卷发现事实错误时在当前卷注明纠正与旧引用，必要时按团队要求添加勘误；不悄悄篡改历史。卷号与实质修订号独立，分卷、读取和排版不增加实质修订或返工。
-
-可执行迁移按执行单元保留版本，接口契约按工具约定维护；上述文档容量规则不用于强行拆分 SQL、契约或图。Git 已有历史按需追溯，使用 Skill 不授权暂存或提交，也不假定当前工作已在 Git 保存。
+Apply the tooling's rules to executable migrations and contracts. Use the document thresholds for prose records. Consult Git history on demand and require actual authorization for staging or committing.

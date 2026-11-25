@@ -1,50 +1,48 @@
-# 图示表达与维护
+# Diagram guidance
 
-准备生成、修改图示，或图示确实能帮助理解技术方案、门禁及看板时读取。本规范是 Skill 内部参考，不要求项目新增图、索引或配置文件；已有文字、表格或折叠结构足够清楚时直接复用。
+Read this when a new or changed diagram would clarify a technical design, gate, or dashboard. Reuse clear text, tables, and collapsible sections when they answer the question.
 
-## 先确定要解释什么
+## Choose a format by question
 
-先明确读者需要回答的问题、当前范围、已有依据及适用版本，再选表达形式。可从用户请求和现有资料推定的选择直接采用；只有影响内容或交付的歧义需要澄清，不例行询问配色、字体或品牌配置。
+Establish what readers need to understand, the scope, evidence, and applicable version. Infer routine presentation choices from the task and the project. Ask only about ambiguity that changes content or delivery.
 
-| 主要问题 | 优先表达 | 保留的信息 |
+| Question | Format | Show |
 |---|---|---|
-| 系统由什么组成，边界在哪里 | 架构图 | 实际组件、职责、边界及必要连接 |
-| 组件部署在哪些环境和位置 | 部署拓扑 | 入口、运行位置、环境及网络边界，区分配置与实际部署 |
-| 谁按什么顺序交互 | 时序图 | 参与者、消息方向、关键异常及响应 |
-| 在什么条件下改变状态 | 状态机 | 状态、触发事件、条件、失败与重入路径 |
-| 谁在何时接手，如何通过门禁 | 流程图／泳道图 | 阶段、责任、条件、等待及返工去向 |
-| 数据如何关联或流动 | ER 图／数据流图 | 实体关系或数据方向；两种问题不混为一图 |
-| 项目包含哪些部分，当前做到哪里 | 可折叠层级清单／表格 | 部分、模块、功能及各自实际状态 |
-| 数值、时间、检查结果如何比较 | 表格／字段列表 | 单位、统计范围、依据与未知项 |
+| What makes up the system and where are its boundaries? | Architecture diagram | Components, responsibilities, boundaries, and necessary links |
+| Where do components run? | Deployment topology | Entry points, runtime locations, environments, and network boundaries. Distinguish configuration from deployment. |
+| Who interacts in what order? | Sequence diagram | Participants, direction, important errors, and responses |
+| When can a state change? | State machine | States, triggers, conditions, failure, and reentry |
+| Who hands work off and when? | Flowchart or swimlanes | Stage, owner, gates, waiting, and rework destinations |
+| How is data related or moved? | ER diagram or data flow | Relationships or direction, according to the question |
+| What is in scope and how far along is it? | Collapsible hierarchy or table | Parts, modules, features, and actual states |
+| How do quantities, times, or check results compare? | Table or fields | Units, scope, basis, and unknowns |
 
-图解决一个主要问题，不将架构、消息顺序、任务进度和全部状态塞入同一画布。简单时间字段沿用现有五字段展示；没有真实排期不生成甘特图，没有可核对数量不生成比例图。
+Give each diagram a primary question. Keep simple time fields in the existing timeline. Use Gantt charts only with a real schedule and proportions only with reliable counts.
 
-## 事实与维护入口
+## Evidence and maintenance
 
-- 从当前有效资料提炼，复用模块、REQ／AC／TASK／BUG 等已有名称和稳定 ID。没有编号时用实际路径和章节关联，不为图建立另一套编号或登记表。
-- 图旁保留范围、来源路径／章节及必要的适用版本或核对时间。图为概览时写明覆盖范围；合并、折叠或省略会影响理解的内容，用一句短注说明，并指向原处详情，不另建省略清单文件。
-- 缺失或冲突标为未知／待核对。计划、假设、当前实现与有效验证结果分别表达；不能为了填满布局补造组件、状态、关系、批准或证据。
-- 图随对应 Living Document 的有效内容更新，不复制整篇原文或历史。图与来源冲突时保留待核对，不用重绘代替业务确认；看板仅更新展示，不改写源状态。
+- Use current sources and existing names and IDs such as REQ, AC, TASK, and BUG. If IDs are absent, link to actual paths and sections.
+- Place scope, source pointers, and needed version or check time beside the diagram. For an overview, briefly identify material omissions or collapses and link to details in place.
+- Mark gaps and conflicts as unknown or pending reconciliation. Distinguish plans, assumptions, implementation, and verified results. Base components, states, relationships, and approvals on evidence.
+- Update the diagram with its living document. Mark the discrepancy pending reconciliation and point to the source. Redrawing the diagram cannot settle a business decision. Keep dashboard changes confined to presentation.
 
-## 密度与可读性
+## Readability
 
-图中突出当前问题的少量重点，其余信息保持清晰的层级；状态使用文字，颜色、形状和位置只作辅助，颜色强调不能等同于通过或批准。
+Highlight what matters and keep text labels for state. Use color, shape, and position as secondary cues. Remove decoration and duplication first, then group, collapse, or layer overviews and details in place. Around nine main nodes is a cue to consider layering. Preserve legible text and required detail.
 
-节点、连线或标签过密时，先去掉装饰和重复，再按职责分组、折叠或在原文档内分成概览与细节。约 9 个主要节点可作为概览需要分层的提示，不是硬性上限，也不是删内容或新建多个文件的理由。不能缩小文字来强塞完整图。
+Keep gates, approvals, exceptions, failure routes, blockers, and recovery entry points visible. Separate delivery stages from ACTIVE, BLOCKED, WAITING_APPROVAL, and similar statuses. Label transitions with events or conditions and route rework to the affected stage. Show only observed checks as passed.
 
-门禁、批准条件、关键异常、失败路径、阻塞原因及恢复入口不能因美化而省略。流程阶段与 ACTIVE／BLOCKED／WAITING_APPROVAL 等运行状态分开表达；等待批准不表示进入了新的业务阶段。转换连线说明事件或条件，返工指向受影响阶段，不将未执行的后续步骤画成已通过。
+Use developer-readable names, explain unfamiliar abbreviations, and use identifiers as secondary labels where helpful. Keep arrows directional, reduce crossing, and leave labels clear of nodes and lines. Explain special symbols briefly. Omit decorative connections while preserving actual dependencies and transitions.
 
-名称面向开发者阅读；缩写必要时首次解释，技术标识可作短副标。连线方向清楚、尽量减少交叉，标签不压住节点或连线；有特殊符号或线型时给出简短图例。布局可推断的装饰连接可以省略，实际依赖、转换条件及失败关系必须保留。
+Group architecture by clients, services, data, and external dependencies. Keep the main flow direction consistent, prefer orthogonal lines, and label supported protocol or relationship details. Group topology by actual or proposed environment boundaries. Layer larger systems.
 
-架构图按端、服务、数据及外部依赖组织，主链路方向统一。连线优先使用清晰的正交路径，标注有依据的协议或关系；部署图按真实或拟定的环境边界分区。展示必要组件和连接即可，组件多时分层表达。
+On narrow screens retain the conclusion and next gate. Give a dense diagram its own horizontal scroll area while keeping the page within the viewport. Provide a readable caption and summary for HTML or SVG diagrams. Use an accessible name connected to real SVG title and description elements. Keep key conclusions available as text.
 
-窄屏保留当前结论和推进条件。复杂图可在局部横向滚动容器中保持可读尺寸，不让整个页面横向溢出，不用裁切或隐藏消除重要信息。HTML／SVG 图提供可读标题和简短说明；SVG 使用关联到有效 title／desc 的可访问名称，文字结论不依赖图像识别。仅针对当前图填写必要说明，不重复全部节点。
+## Formats and output
 
-## 格式与产物边界
+- Use Mermaid or the project's existing format for diagrams maintained in technical documents. Retain editable sources such as draw.io when developers need them. Revise only the relevant diagram.
+- Embed simple diagrams. Keep an independent source only for complexity, tool use, or separate editing. Maintain one source for the same information.
+- Use existing dashboard phase strips, text, tables, and collapsible sections first. Embed static diagrams only where they add clarity. Use system fonts and keep the page offline. Keep local file paths highlighted and copyable. Skip sidecar SVG or PNG, diagram registries, preview pages, and branding configuration by default.
+- Follow the [verification gate](workflow.md#verification-gate) for independent review, scripts, browser previews, screenshots, or export. Stop when an approved check reaches its limit or cannot be interpreted.
 
-- 技术文档中的持续维护图优先复用 Mermaid 或项目已有格式；需要开发者手动编辑时保留 draw.io 等源格式。不为统一样式改写全部现有图。
-- 简单图嵌入对应方案；复杂关系、工具消费或确需独立编辑时，按现有产物规则维护独立图。重绘默认更新约定入口，不同时保留多套同含义源文件。
-- 看板按需在已有 HTML 内表达，先使用已有阶段条、文字、表格和折叠结构；确有额外解释价值时再嵌入静态图。不附带 SVG／PNG、图形注册 JSON、预览页面、品牌配置或字体下载；使用本地系统字体，保持离线可用。本地资料路径继续高亮展示，不加入打开文件操作。
-- 生成授权不包含验证、导出或重新审查。独立图形审查、检查脚本、浏览器预览和截图仍按当前 Skill 的验证授权与停止规则执行；不因无法读图自动换工具或反复重绘。编写时按来源组织内容不等于追加验证。
-
-设计思路参考 [diagram-design](https://github.com/cathrynlavery/diagram-design)：借鉴按信息用途选图、限制密度及保留来源的原则，按 P-SOP 的精简维护与授权边界重新组织。运行时无需读取或安装该仓库。
+[diagram-design](https://github.com/cathrynlavery/diagram-design) informed the format, density, and evidence principles. This guidance is self-contained.

@@ -1,52 +1,52 @@
-# 首次接入与恢复
+# Adoption and recovery
 
-接入与恢复默认读取现有资料、代码和证据以理解当前范围，不包含重跑验证。缺少或失效的证据明确保留缺口；独立审查、测试、构建等按 [验证执行门禁](workflow.md#验证执行门禁) 取得授权，不以“恢复可信度”为由追加检查。
+Read existing records, code, and evidence to understand the scope. Record missing or outdated evidence. Get authorization under the [verification gate](workflow.md#verification-gate) before running independent reviews, tests, or builds.
 
-## NEW：新项目
+## NEW — New project
 
-先明确目标、范围、AC 与本次交付终点。需求确认后默认建立状态文件和需求文档；项目缺少入口约束时才补充精简 AGENTS.md。先写有用内容，后续进入设计和规划再建立对应资料，不预建一套空目录。
+Clarify the goal, scope, AC, and delivery endpoint. Once requirements are confirmed, establish the state and requirements records within the write grant. Add a short `AGENTS.md` entry only when no entry instructions exist. Write useful content first. Create design and task records at those stages and defer empty directories.
 
-用户提出项目整体需求时，若首期范围、核心场景或实现方向值得先探索，可以说明具体原因，询问是否进入 [Brainstorming](workflow.md#需求探索与-brainstorming)。用户选择跳过或需求已清楚时直接整理并确认；不为发起询问提前创建状态文件或讨论文档。
+Keep entry instructions short: read the state first, read only the current scope, respect authorization, and invoke P-SOP. Keep the full procedure in the Skill.
 
-入口约束只写“先读状态、按当前范围读取资料、遵守本次授权、调用 P-SOP”的短规则。完整 SOP 留在 Skill，不复制到每个项目。
+## ADOPT — Existing project
 
-## ADOPT：已有项目中途接入
+1. Start with the current task, applicable rules, and sources the user named. Read the actual implementation and PRD, TECH, TASK, migration, and operations records that affect the scope. Identify known change ownership.
+2. Distinguish confirmed requirements, existing design, present implementation, and valid verification. Mark gaps as unverified. Treat directory presence and undocumented approvals as insufficient evidence.
+3. Set the adoption boundary at the current task, module, delivery, or full project as requested. Keep unrelated cleanup outside adoption.
+4. Capture enough baseline to continue: goal and AC, effective design, current implementation and evidence gaps, source paths, ownership of uncommitted changes, and valid authorization. Use the earliest Git commit as the project start, with attribution. For missing or incomplete Git history, follow the [time rules](time-and-gap.md). Record the SOP adoption date separately.
+5. With valid write authorization, create `PROJECT-STATE.md` with project origin ADOPTED and entry mode ADOPT. Point to existing records in their current formats. Fill only gaps required for the current task, preferably in place.
+6. Resume at the stage justified by the evidence. Reuse sufficient design and verification. Resolve only missing AC, decisions, permissions, or evidence that affect this delivery.
 
-1. 从当前任务、适用项目约束及用户指定入口只读核对。识别实际代码、现有 PRD / TECH / TASK / 迁移 / 运维资料与已知修改归属；只扩展到当前影响范围。
-2. 区分确认需求、已有设计、存在实现与有效验证。缺少证据记为未核实，不补造历史批准或把目录存在记为完成。
-3. 确定接入边界：一个当前任务、模块、交付或用户指定的全项目。先接管这一范围，不强迫整理全仓库。
-4. 记录足够支撑下一步的基线：目标与 AC、有效方案、当前实现和检查缺口、资料路径、未提交修改归属、既有授权。项目起始使用 Git 最早提交时间并注明来源；无 Git 或历史不完整按 [时间规则](time-and-gap.md) 标注缺口，首次接入时间独立记录。
-5. 取得或复用资料初始化授权后建立 PROJECT-STATE.md，项目来源为 ADOPTED，本次进入为 ADOPT。保留原文件及格式，状态直接指向它们；缺失且当前确实需要的内容在原资料中补充或建立一份对应文档。
-6. 根据已核实证据落到真实阶段。已有设计和验证充分时可以从当前任务接续；缺关键 AC、方案或授权则先补受影响部分，不要求补齐与本期无关的完整历史。
+Treat a read-only inventory as read-only. Reuse a clear grant for both adoption and implementation within that scope. Follow the active delivery gates when editing code.
 
-接入只读盘点不意味着允许搬迁文件、覆盖代码或实施新功能。用户已明确授权某范围的接入与实现时，资料初始化无需重复确认；代码实施仍需满足该范围的有效门禁。
+<a id="continue日常接续"></a>
 
-## CONTINUE：日常接续
+## CONTINUE routine work
 
-优先定位用户点名的目标或任务；上下文已唯一明确且授权有效时直接接续。多个未完成目标使本轮范围有歧义时，只澄清要处理哪一个，复用既有目标及 REQ／TASK，不另建变更登记表。待办存在不等于本轮全部获准，发现其他事项按规则分流，不顺手加入执行范围。
+Use the named goal or task. Continue directly when the scope is clear and authorized. If several open items make it ambiguous, ask only which item is in scope. Reuse existing goals, REQ, and TASK. Backlog entries outside that scope remain separate. Keep new issues in the appropriate workflow.
 
-按本轮目标读取当前任务及相关需求和方案，核对工作区、证据与前置是否仍一致，在有效授权内继续。发现接口、范围或修改归属变化时转为 RESUME 或回到受影响阶段，不能按旧快照机械执行。
+Read the relevant task, requirements, and design. Check that the worktree, evidence, and prerequisites still support the next action. Switch to RESUME or return to the affected stage if interfaces, scope, or ownership have changed.
 
-## RESUME：中断恢复
+## RESUME — After a gap or context change
 
-保留项目来源、任务 ID、累计修订和有效记录。按 [开发周期与 Gap 规则](time-and-gap.md) 读取已有推进时间计算距上次推进；发生有效推进后才同步更新时间与内容，不另存恢复时间或历史中断。运行状态暂设 RECOVERING，不重新初始化或重置进度。
+Preserve origin, stable task IDs, revision counts, and valid records. Compute the gap from the existing progress timestamp as defined in the [time rules](time-and-gap.md). Recalculate the gap at the actual update time. Change the progress timestamp and its summary only after meaningful progress. Use RECOVERING while reconciling the baseline. Preserve the project and its progress instead of reinitializing.
 
-核对：当前需求 / 方案修订、任务进展与真实实现、相关接口与依赖、未提交修改归属、原授权范围、旧验证是否覆盖当前代码。能继续的只读核对继续；归属或关键业务含义不明时只问阻止下一步的具体问题。
+Check requirements and design revisions, task progress against implementation, relevant interfaces and dependencies, uncommitted change ownership, the original grant, and whether prior evidence covers the current code. Continue safe read-only checks. Ask only about an ownership or business question that blocks the next action.
 
-把恢复结论写回状态的当前工作、边界与风险，以及受影响的原文档。默认不单独生成 Recovery Summary。核对一致且授权有效时回 ACTIVE；需要方案或范围确认时为 WAITING_APPROVAL；外部依赖确实阻止当前推进时为 BLOCKED。
+Record recovery findings in the current work, boundaries, and risks of the state file and in affected source records. Keep a separate Recovery Summary out of the default workflow. Use ACTIVE once the baseline and authorization are valid, WAITING_APPROVAL when a design or scope decision is needed, and BLOCKED when an external dependency actually prevents work.
 
-恢复在一轮内完成时可直接保存最终结论，并简述经过 RECOVERING 的依据；仍需等待、移交或跨轮继续时保存 RECOVERING 当前快照，不为每个核对步骤创建快照文件。
+When recovery completes in one pass, record the final state and why recovery was needed. If waiting, handing off, or continuing later, save one current RECOVERING snapshot.
 
-## 开发周期、中断与返工
+## Timeline, gaps, and rework
 
-开发周期与中断提醒按 [统一时间规则](time-and-gap.md) 维护，展示开发者能直接理解的时间与恢复提示。SOP 首次接入放项目身份信息，状态核对放文档元信息；默认不统计开发工时或累计阻塞时长。
+Use the [time rules](time-and-gap.md) for elapsed time and gap guidance. Put the first SOP adoption date in project identity and the state check timestamp in metadata. Project duration is calendar time. Development hours and accumulated blocked time are outside the default metrics.
 
-Gap 是恢复线索；代码、接口或授权变化即使只隔几分钟也需核对。中断等级不证明项目失控，不单独授予验证权限或机械阻断其他有效授权。
+A gap is a clue. Reconcile material code, interface, or permission changes even after a short interval. Use the normal authorization gates for any extra checks.
 
-修订标实质内容变化，返工标同一目标因需求或设计遗漏、实现错误等重做。两者不混为一谈。正常增量、排版、读取和分卷不算返工。分别记录原因、影响和最新变化，避免仅凭次数评价项目质量。
+Count material changes as revisions. Count repeated work on the same goal caused by a requirements or design gap, implementation mistake, or similar cause as rework. Keep ordinary increments, formatting, reading, and volume rollover outside rework counts. Record cause, impact, and the latest change.
 
-同一目标多次返工时检查重复原因：默认约 3 次提醒，约 5 次建议集中复核需求与方案；阈值可调，关键缺口出现时立即复核。没有实际门禁缺口，不因次数机械停工或要求重启全部流程。
+For repeated rework on the same goal, look for a recurring cause. Use about three occurrences as a reminder and about five as a prompt for a focused requirements and design review. Adjust thresholds as needed. Address critical gaps immediately. Pause only where an actual gate prevents progress.
 
-## 移交或停止使用
+## Handoff or discontinuation
 
-用户要求移交或停止使用 P-SOP 时，给出当前状态、未完成任务、证据与授权边界，保留实际项目资料。按请求移除或调整入口里的 Skill 提示；不自动删除项目文档、回滚代码或解除团队约束。资料无需依赖专用解析器，人和其他 Agent 可直接继续阅读。
+Give the current state, open tasks, evidence, and authorization boundaries. Preserve project records in readable formats. Remove or adjust entry-point hints only as requested. Keep code, project documents, and team constraints intact unless the user separately requests a change.

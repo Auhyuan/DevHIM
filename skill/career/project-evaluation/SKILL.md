@@ -115,53 +115,16 @@ For each opportunity, explain:
 
 ## Output Format
 
-Respond in Chinese unless the user asks otherwise. Use this structure:
+Respond in Chinese unless the user asks otherwise. For Chinese output, use these headings in the order below: 结论, 置信度, 评分, 能学到什么, 对求职的帮助, 技术深度与广度, 项目中的成长机会, 建议投入路线, 最终建议. Use 高 / 中 / 低 for confidence and label evidence and missing information separately. Use this structure:
 
-```markdown
-**结论**
-一句话判断项目是否值得投入，并说明最适合的投入方式。
-
-**置信度**
-高/中/低。依据：...
-缺失信息：...
-
-**评分**
-| 维度 | 分数 | 依据 |
-| --- | ---: | --- |
-| 学习价值 | x/5 | ... |
-| 跳槽/再就业帮助 | x/5 | ... |
-| 技术深度 | x/5 | ... |
-| 技术广度 | x/5 | ... |
-| 业务/domain 价值 | x/5 | ... |
-| 成长空间 | x/5 | ... |
-| 差异化程度 | x/5 | ... |
-
-**能学到什么**
-- ...
-
-**对求职的帮助**
-- 可写进简历的点：...
-- 可讲的面试故事：...
-- 不建议主打的点：...
-
-**技术深度与广度**
-- 深度：...
-- 广度：...
-- 风险或短板：...
-
-**项目中的成长机会**
-- 场景：...
-  症状：...
-  学习点：...
-  可转化成果：...
-
-**建议投入路线**
-1. 第一阶段：...
-2. 第二阶段：...
-3. 第三阶段：...
-
-**最终建议**
-强烈投入 / 选择性投入 / 价值有限 / 不建议作为主项目。理由：...
-```
+- **Conclusion**. State whether the project is worth pursuing and the best way to participate.
+- **Confidence**. Rate it high, medium, or low. Give the evidence and important gaps.
+- **Scores**. Use a table with dimension, score out of five, and evidence. Include learning value, job-switching or re-employment value, technical depth, technical breadth, business or domain value, growth potential, and differentiation. For Chinese output use 学习价值, 跳槽/再就业帮助, 技术深度, 技术广度, 业务/domain 价值, 成长空间, 差异化程度.
+- **What you can learn**. Name the concrete learning opportunities.
+- **Career value**. Identify résumé points, interview stories, and points too weak to lead with.
+- **Technical depth and breadth**. Explain each dimension and its risks or gaps.
+- **Growth opportunities**. For each opportunity, give the scenario, symptom, learning point, and demonstrable outcome.
+- **Suggested path**. Give a three-stage sequence for getting involved.
+- **Final recommendation**. Choose commit strongly, participate selectively, pursue for limited value, or avoid as the main project. For Chinese output use 强烈投入 / 选择性投入 / 价值有限 / 不建议作为主项目. Explain the reason.
 
 If the repository is unavailable, produce only a preliminary evaluation and explicitly state what evidence would change the conclusion.

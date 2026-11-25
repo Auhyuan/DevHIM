@@ -25,10 +25,10 @@
         <mxCell id="scope_note" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;strokeColor=#666666;fillColor=#FFF2CC;fontSize=12;" value="本图覆盖 NEW 起项与本期新需求；ADOPT / CONTINUE / RESUME 按 P-SOP 的接入与恢复规则定位实际阶段。" vertex="1">
           <mxGeometry height="105" width="320" x="300" y="975" as="geometry" />
         </mxCell>
-        <mxCell id="brain_note" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;strokeColor=#666666;fillColor=#FFF2CC;fontSize=12;" value="Brainstorming 仅按需提议并说明原因；用户决定是否进入，已明确要求时直接进入。缺事实或授权时先澄清，不靠构思补造。" vertex="1">
+        <mxCell id="brain_note" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;strokeColor=#666666;fillColor=#FFF2CC;fontSize=12;" value="方向或关键取舍未定时，说明原因并征询是否使用独立 Brainstorming Skill。用户明确要求且 Skill 可用时直接进入。探索结论回到需求确认。" vertex="1">
           <mxGeometry height="125" width="315" x="1060" y="720" as="geometry" />
         </mxCell>
-        <mxCell id="brain" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeColor=#6C8EBF;fillColor=#DAE8FC;fontSize=14;" value="Brainstorming" vertex="1">
+        <mxCell id="brain" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeColor=#6C8EBF;fillColor=#DAE8FC;fontSize=14;" value="独立 Brainstorming&lt;br&gt;Skill" vertex="1">
           <mxGeometry height="48" width="160" x="950" y="905" as="geometry" />
         </mxCell>
         <mxCell id="req_idea" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeColor=#6C8EBF;fillColor=#DAE8FC;fontSize=14;" value="需求整理与澄清" vertex="1">
@@ -100,13 +100,16 @@
         <mxCell id="code_fix" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeColor=#B85450;fillColor=#F8CECC;fontSize=13;" value="代码修复" vertex="1">
           <mxGeometry height="48" width="160" x="490" y="2305" as="geometry" />
         </mxCell>
-        <mxCell id="integration" parent="1" style="rhombus;whiteSpace=wrap;html=1;shapeInside=1;strokeColor=#D6B656;fillColor=#FFF2CC;fontSize=13;fontStyle=1;" value="获准集成验证&lt;br&gt;通过？" vertex="1">
+        <mxCell id="review_handoff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeColor=#D79B00;fillColor=#FFE6CC;fontSize=13;fontStyle=1;" value="按 AC 汇报验证分工&lt;br&gt;等待用户选择下一步" vertex="1">
+          <mxGeometry height="44" width="200" x="755" y="2318" as="geometry" />
+        </mxCell>
+        <mxCell id="integration" parent="1" style="rhombus;whiteSpace=wrap;html=1;shapeInside=1;strokeColor=#D6B656;fillColor=#FFF2CC;fontSize=13;fontStyle=1;" value="获准的 Agent 检查&lt;br&gt;（含适用集成）&lt;br&gt;通过？" vertex="1">
           <mxGeometry height="85" width="150" x="780" y="2385" as="geometry" />
         </mxCell>
-        <mxCell id="uat" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeColor=#D6B656;fillColor=#FFF2CC;fontSize=14;" value="QA / UAT（按需）" vertex="1">
+        <mxCell id="uat" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeColor=#D6B656;fillColor=#FFF2CC;fontSize=14;" value="按需交接人工操作或签收&lt;br&gt;等待实际结果" vertex="1">
           <mxGeometry height="48" width="160" x="775" y="2480" as="geometry" />
         </mxCell>
-        <mxCell id="verification_note" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;strokeColor=#666666;fillColor=#FFF2CC;fontSize=12;" value="自验证、Code Review、集成与 UAT 各按有效授权范围执行；已有授权不重复询问。未执行不得标通过；失败按原因回受影响阶段。" vertex="1">
+        <mxCell id="verification_note" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;strokeColor=#666666;fillColor=#FFF2CC;fontSize=12;" value="Review 通过后先按 AC 汇报已有证据、Agent 可验项和人工项，等待用户选择。授权后只推进选定范围。人工项按版本与场景记录实际反馈；部分通过仅覆盖对应范围。" vertex="1">
           <mxGeometry height="120" width="320" x="1060" y="2405" as="geometry" />
         </mxCell>
         <mxCell id="accept" parent="1" style="rhombus;whiteSpace=wrap;html=1;shapeInside=1;strokeColor=#B85450;fillColor=#F8CECC;fontSize=14;fontStyle=1;" value="验收通过？" vertex="1">
@@ -163,7 +166,7 @@
         <mxCell id="e5" edge="1" parent="1" source="brain_choice" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="brain" value="用户同意 / 已明确要求">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e6" edge="1" parent="1" source="brain_choice" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="req_idea" value="跳过 / 目标清楚">
+        <mxCell id="e6" edge="1" parent="1" source="brain_choice" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="req_idea" value="跳过 / 目标清楚 / 不可用">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e7" edge="1" parent="1" source="prd" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="ac" value="">
@@ -172,7 +175,7 @@
         <mxCell id="e8" edge="1" parent="1" source="ac" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="req_review" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e9" edge="1" parent="1" source="req_review" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;">
+        <mxCell id="e9" edge="1" parent="1" source="req_review" target="tech_spec" value="需求已确认" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e10" edge="1" parent="1" source="req_review" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="req_rev" value="未通过 / 待确认">
@@ -291,7 +294,10 @@
         <mxCell id="e27" edge="1" parent="1" source="self_verify" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="code_review" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e28" edge="1" parent="1" source="code_review" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="integration" value="通过且需集成">
+        <mxCell id="review_passed" edge="1" parent="1" source="code_review" target="review_handoff" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" value="通过">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e28" edge="1" parent="1" source="review_handoff" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="integration" value="选定 Agent 检查">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e29" edge="1" parent="1" source="code_review" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="code_fix" value="实现问题">
@@ -312,13 +318,13 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e31" edge="1" parent="1" source="integration" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="uat" value="通过且需 UAT">
+        <mxCell id="e31" edge="1" parent="1" source="integration" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="uat" value="通过；按指令交接人工项">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e32" edge="1" parent="1" source="uat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="accept" value="">
+        <mxCell id="e32" edge="1" parent="1" source="uat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="accept" value="按反馈范围">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e33" edge="1" parent="1" source="accept" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="release_choice" value="验收通过">
+        <mxCell id="e33" edge="1" parent="1" source="accept" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="release_choice" value="本期全部 AC 通过">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e34" edge="1" parent="1" source="accept" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="issue_fix" value="实现问题">
@@ -397,7 +403,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e45" edge="1" parent="1" source="code_review" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="accept" value="通过；无适用集成 / UAT">
+        <mxCell id="e45" edge="1" parent="1" source="review_handoff" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="accept" value="选用已有充分证据">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1005" y="2332" />
@@ -406,7 +412,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e46" edge="1" parent="1" source="code_review" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="uat" value="通过；仅需 UAT">
+        <mxCell id="e46" edge="1" parent="1" source="review_handoff" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="uat" value="选定人工项">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="985" y="2332" />
@@ -415,7 +421,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e47" edge="1" parent="1" source="integration" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="accept" value="通过；无需 UAT">
+        <mxCell id="e47" edge="1" parent="1" source="integration" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;endArrow=block;endFill=1;" target="accept" value="所选范围证据充分">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1030" y="2427" />

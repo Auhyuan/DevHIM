@@ -1,98 +1,89 @@
-# 缺陷记录与处理
+# Defect tracking
 
-用户报告缺陷，或当前工作发现需要独立跟踪的产品问题时读取。集中维护少量资料，使开发者能快速找到问题、当前状态与下一步；登记不授予修复或验证权限。
+Read this when the user reports a defect or the current work finds a product problem that needs independent tracking. Keep the issue, state, and next action easy to find. Require the appropriate grant for repair and verification.
 
-## 登记与分流
+## Register or route
 
-- 用户报障、已有需求或 AC 与实际行为不一致、已完成能力回归，或需要跨任务处理及后续验收的问题，进入缺陷记录。资料不足先记 UNCONFIRMED，不要求先复现才能登记。
-- 普通编码中的即时纠错、测试脚本故障和环境问题在相关 TASK 中处理，不全都编号为产品 BUG。脚本失败、工具超时或断言未执行不证明产品失败；发现其背后的产品异常时分别记录依据。
-- 新目标或新增业务能力回需求流程；业务预期不明时记录分歧，不擅自增加 AC 或认定现有行为错误。
-- 编号前查已有索引和相关条目，按现象、触发条件与预期判断是否重复；证据不足不按相似标题直接合并。不为登记扫描全仓库或运行复现检查，复现按验证授权执行。
+- Record user reports, behavior that conflicts with requirements or AC, regressions, and product problems that need cross-task handling or later acceptance. Use UNCONFIRMED when evidence is incomplete. A report may be recorded before reproduction.
+- Track routine coding corrections, failed test scripts, and environment problems in the relevant TASK. Record separate evidence if investigation reveals a product defect.
+- Route new goals or behavior to requirements. If expected behavior is unclear, record the question and keep proposed AC pending.
+- Check the relevant index and entries before assigning an ID. Compare actual behavior, trigger, and expected behavior. Keep possible duplicates separate until evidence supports merging. Limit discovery to relevant records. Apply the verification gate to reproduction.
+- Write records under the current request or an existing record grant. During read-only advice or review, suggest changes in conversation.
 
-登记资料遵守本次请求、项目规则及既有记录授权；只读 Review 或讨论方案时只提出记录建议，不擅自创建项目资料。
+## Record locations
 
-## 记录位置与职责
+Reuse the project's tracker, issue entry, or external system, including its names, IDs, and statuses. For new file-based records, use `psop/OPS/bug/BUGS.md` as needed, including for development defects. Keep repair tasks and implementation in DEV.
 
-先复用项目的缺陷文件、ISSUES 条目或外部系统，保留既有名称、状态与编号，不强制迁移或建立影子副本。新项目需要文件记录时可使用 `psop/OPS/bug/BUGS.md`，开发期产品缺陷也可集中于此；修复任务与实现仍在 DEV。
-
-| 入口 | 保存内容 |
+| Location | Contents |
 |---|---|
-| BUGS | 问题、当前原因结论、状态、关联任务、处理摘要及关闭依据，是缺陷事实的主要来源 |
-| INDEX | 编号／详情链接、状态、优先级、模块、缺陷标题；从 BUGS 同步的轻量导航 |
-| TASK | 修复范围、实施约束、验证授权、执行结果与证据，通过 BUG ID 关联 |
+| BUGS | Authoritative problem, current cause finding, status, task links, repair summary, and closure evidence |
+| INDEX | Lightweight navigation with ID and link, status, priority, module, and problem title |
+| TASK | Repair scope, constraints, verification grant, actual results, and evidence linked by BUG ID |
 
-缺陷少时将索引表放 BUGS 顶部；确有导航负担或项目已使用双文件时再维护 `INDEX.md`。目录和文件按需建立，不为每个 BUG 新建文档。同一记录只选一个详情入口，ISSUES 分流后保留关联，不重复保存详情。
+Embed a small index at the top of BUGS. Split into `INDEX.md` when navigation warrants it or the project already uses two files. Maintain one detail source per issue. After triage, keep a link in ISSUES. Synchronize index status and priority from the detail entry, mark inconsistencies, and use titles that describe the problem. Open relevant entries after scanning the index.
 
-INDEX 标题描述问题本身，不写修复过程、测试数量或授权历史。状态和优先级从详情同步，出现不一致标待核对，不独立做另一套判断；编号链接定位对应条目。优先看索引，再按当前范围读取详情和任务，不默认加载全部缺陷。
+## IDs and minimum details
 
-## 编号与最小字段
+Reuse stable IDs. Otherwise allocate unique sequential IDs such as `BUG-001` across volumes. Update the original entry for the same issue, including when reopening it. Use a new ID only for an independent problem and link related history.
 
-继承既有稳定编号；无既有约定时用 `BUG-001` 等项目内唯一连续编号，分卷不重新起号。已登记问题更新原条目，已关闭后同一问题复发重开原记录；独立的新问题才用新编号，并关联相关历史。
+Record ID and title, actual behavior, expected behavior and its source, impact, status, current finding, and next action. Mark gaps as unknown. Add reproduction conditions, environment and version, evidence, priority, cause, task, repair, and acceptance details when useful. Keep evidence summaries and references. Exclude secrets and keep durable conclusions independent of `tmp/`.
 
-条目至少包括编号与标题、实际现象、预期及依据、影响范围、当前状态、当前结论与下一步。信息不足就地写未确认，不能补造预期、根因、优先级或执行结果。
+Assign priority only when needed for triage. Follow the project's scheme. If it has none, you may use P0 for severe and urgent impact, P1 for an important delivery issue, P2 for a normal issue, and P3 for a low-priority improvement. State the impact that supports the rating or leave priority pending. Keep repair authorization and actual blockers separate from priority.
 
-按需要补复现条件、环境／版本、证据入口、优先级、原因、关联 TASK、修复摘要和验收／关闭依据；接口、日志、截图和详细方案不是必填占位。证据保留必要摘要及来源，敏感信息不复制进记录，长期结论不能只依赖 tmp。
+## States and transitions
 
-优先级沿用项目定义，需要排序时才标注，并用具体影响说明依据。没有定义时可用 P0（需立即处理的严重影响）、P1（当前交付中的重要问题）、P2（一般问题）、P3（低优先改进）；影响不明写待评估。优先级不自动授权修复，也不将单个问题的阻塞扩大至无关工作。
-
-## 状态与处置
-
-先保留项目已有等价状态并说明对应含义。无既有约定时采用下列主流程，状态不表示获得执行许可：
+Use existing equivalents where available. The default lifecycle is:
 
 ```text
 UNCONFIRMED → OPEN → IN_PROGRESS → FIXED_PENDING_QA → RESOLVED
 ```
 
-| 状态 | 含义与进入条件 |
+| State | Meaning |
 |---|---|
-| UNCONFIRMED | 已收到产品问题线索，预期、事实或影响仍需确认；不是产品已验证失败 |
-| OPEN | 根据用户确认或有效依据确定为缺陷，待处理；不要求必须由 Agent 再次复现 |
-| IN_PROGRESS | 当前授权范围内已开始修复 |
-| FIXED_PENDING_QA | 修复已实现，约定验证或缺陷验收尚未满足；写明未验证、验证通过待验收等实际边界 |
-| RESOLVED | 约定缺陷验收已通过，有覆盖范围／版本与关闭依据；不表示已部署 |
+| UNCONFIRMED | A report exists and expected behavior, facts, or impact still need confirmation. |
+| OPEN | User confirmation or valid evidence establishes a defect awaiting repair. Reuse valid evidence. |
+| IN_PROGRESS | Repair has started within the approved scope. |
+| FIXED_PENDING_QA | Repair is implemented. Record which verification or defect acceptance conditions remain. |
+| RESOLVED | Agreed defect acceptance passed for a known version and scope. Track deployment separately. |
 
-IN_PROGRESS 的修复失败继续保留实际待办；待验收缺陷失败回 OPEN 或已获准继续处理的 IN_PROGRESS。RESOLVED 后复发回 OPEN，保留原关闭依据的短历史、复发条件及新任务关联，不改写原完成事实。
+Keep unfinished repair work in IN_PROGRESS. Failed acceptance returns to OPEN or to IN_PROGRESS when further repair is authorized. Return a recurrence after RESOLVED to OPEN on the same record and retain the prior closure evidence, recurrence conditions, and new task links.
 
-重复项使用项目既有处置，或例外状态 DUPLICATE，链接主要缺陷；确认非缺陷使用既有处置，或 NOT_A_BUG，说明依据。暂缓维持当前未完成状态并记录原因、决定来源与恢复条件，不计为 RESOLVED。无法复现不自动关闭：保留已执行范围及剩余条件，进一步验证按授权安排。
+Use the project's dispositions or DUPLICATE with a primary issue link, and NOT_A_BUG with evidence. For deferral, retain the unfinished status and record the reason, decision source, and reentry condition. When reproduction fails, keep the run scope and unresolved conditions and seek authorization for further checks as needed.
 
-## 修复、验收与关闭
+## Repair, acceptance, and closure
 
-1. **确定边界。** 结合预期、影响及已有证据确认问题；不把原因假设写成已证明根因。需求缺口回需求，方案缺口回设计，修复范围按关联任务编排。一项任务可处理相关缺陷，不强制一 BUG 一 TASK。
-2. **按授权修复。** 登记、分析、修改、验证各遵守实际授权。仅修复问题和必要影响范围，不借机重构无关模块；已有有效授权覆盖时直接推进，不重复确认。
-3. **按授权验证。** 遵守 [验证门禁](workflow.md#验证执行门禁)，次数与停止条件记录在现有 TASK。修复不自动触发全量回归，复测或扩围需原方案覆盖，否则报告并取得确认。
-4. **记录实际结果。** BUGS 只保留修复和验证短结论及 TASK 入口；未执行、失败、自检和实际测试分别表达。实现完成可记 FIXED_PENDING_QA，但缺少任务约定证据时修复任务不能标 DONE。
-5. **按约定验收关闭。** 采用项目明确的验收人或机制，不强制每个项目拥有独立 QA；既有独立 Review 要求继续遵守。自测结果只有满足已约定验收机制才可作为关闭依据，Agent 不能自行替换验收人或降低标准。关闭记录结果、执行者／机制、对象版本、覆盖范围与依据；部分场景通过不关闭整个问题。
+1. Confirm the affected behavior, impact, and evidence. Label cause hypotheses. Return requirements or design gaps to their stages. Scope repairs through linked tasks; one task may cover related defects.
+2. Apply the current grants to recording, analysis, implementation, and verification. Reuse valid authorization without asking again. Keep repairs focused.
+3. Follow the [verification gate](workflow.md#verification-gate). Record run limits and stop conditions in TASK. Require coverage for full regression, retests, or expanded checks.
+4. Keep a short repair and verification summary plus task links in BUGS. Distinguish self-checks, tests, failed checks, and unrun work. Use FIXED_PENDING_QA when implemented. Mark TASK done only when its agreed evidence exists.
+5. Close under the agreed acceptance mechanism and any independent review requirement. Self-check evidence qualifies only if the mechanism permits it. Record the result, reviewer or acceptance mechanism, version, scope, and evidence. Keep closure pending for partial coverage, an unknown outcome, or a missing decision mechanism.
 
-验收结果未知保留待验收；如果项目尚未约定关闭机制，明确待决定，不自行宣称关闭。缺陷验收和实际发布分别记录，需要发布才能生效时注明版本／发布待办；关闭不授予部署权限，也不代表整个项目通过验收。
+Track deployment separately, including the required version or release task. Keep overall project acceptance and deployment authorization separate from defect closure. When a diagram would clarify transitions, follow [diagram guidance](visual-communication.md) and retain failed acceptance and reopening routes in existing records.
 
-确需解释缺陷流转时，按 [图示表达与维护](visual-communication.md) 在现有资料内表达状态和转换条件，保留验收失败及复发重开的路径；沿用上表或项目已有状态，不为每个 BUG 另建图。
+## Maintenance and progress
 
-## 持续维护与进度展示
+Update the same entry as findings, proposed repair, and results change. Replace stale hypotheses or mark them as superseded. Keep only history needed for handoff. Avoid full conversations, repeated authorization logs, tool output, and duplicated test matrices.
 
-覆盖更新同条目的当前认识、拟修复范围与处理结论，原假设失效时注明或替换，不同时保留互相矛盾的当前描述。必要历史只留影响接续的一句摘要；不累积聊天、每轮工具输出、重复授权流水或全量测试矩阵。
+Summarize only defects affecting current delivery, open decisions, and source links in the state and dashboard. Count only a reconciled scope. Separate resolved issues, duplicates, non-defects, and deferrals. Rely on actual delivery gates even when no issues are OPEN.
 
-PROJECT-STATE 与看板只提炼影响当前交付的缺陷、待决定事项和详情入口，不复制全部记录。只有范围及状态可核对时才展示统计；RESOLVED、重复、非缺陷、暂缓分别计数，不以无 OPEN 宣称交付完成。
+Remove redundant process notes before [volume rollover](artifacts.md#living-documents-and-volume-rollover). Carry open issues and necessary context forward with the same IDs. Keep completed evidence in the sealed volume, add a successor link, and update index targets.
 
-文件变大先删重复与无用过程，再按 [Living Documents 与分卷](artifacts.md#living-documents-与分卷) 处理。未完成条目与有效上下文移入新卷，保留稳定 ID 和已完成证据，旧卷注明后继；索引链接同步指向当前有效条目，不为分卷另建一套事实。
-
-## 精简示例
-
-以下仅说明结构，不代表项目事实。记录少时索引位于 BUGS 顶部，拆分 INDEX 后使用带文件路径的详情链接。
+## Example
 
 ```markdown
-| 编号／详情 | 状态 | 优先级 | 模块 | 缺陷标题 |
+| ID / details | Status | Priority | Module | Title |
 |---|---|---|---|---|
-| [BUG-001](#bug-001) | OPEN | P1 | 订单 | 重复确认订单后余额再次扣减 |
+| [BUG-001](#bug-001) | OPEN | P1 | Orders | Repeated confirmation charges the order again |
 
 ## BUG-001
 
-| 项目 | 当前记录 |
+| Field | Record |
 |---|---|
-| 现象 | 同一订单重复确认后，余额再次扣减。 |
-| 预期及依据 | 重复确认不重复扣款；订单 AC-004。 |
-| 影响／复现 | 订单余额；已确认订单再次提交确认。环境与版本待补。 |
-| 状态／优先级 | OPEN／P1；重复扣减影响余额正确性。 |
-| 当前结论／下一步 | 用户已确认问题；原因待确认，修复与验证尚未获准。 |
+| Actual | Confirming an already confirmed order deducts the balance again. |
+| Expected | Confirmation is idempotent under Orders AC-004. |
+| Impact and trigger | Order balance. Submit confirmation again. Environment and version pending. |
+| State and priority | OPEN / P1. The second charge makes the balance wrong. |
+| Finding and next action | The user confirmed the problem. Cause pending. Repair and checks await authorization. |
 ```
 
-开始修复后补充实际 TASK 链接；取得验证结果后只写摘要并指向证据。关闭时补验收依据；没有数据的可选字段不预填虚构内容。
+In a separate INDEX, include the detail file path in the link. Add the actual task link once repair starts and briefly link evidence after checks and acceptance. Fill optional fields when facts exist.
